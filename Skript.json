@@ -56,9 +56,9 @@
       ],
       "event values": [
         "event-block",
+        "event-entity",
+        "event-itemstack",
         "event-location",
-        "event-object",
-        "event-object",
         "event-player",
         "event-world",
         "past event-block"
@@ -105,11 +105,11 @@
       ],
       "event values": [
         "event-itemstack",
-        "event-object",
         "event-player",
+        "event-string",
         "event-world",
         "past event-itemstack",
-        "past event-object"
+        "past event-string"
       ],
       "cancellable": true
     },
@@ -130,11 +130,11 @@
       ],
       "event values": [
         "event-itemstack",
-        "event-object",
         "event-player",
+        "event-string",
         "event-world",
         "past event-itemstack",
-        "past event-object"
+        "past event-string"
       ],
       "cancellable": true
     },
@@ -343,7 +343,7 @@
       ],
       "event values": [
         "event-damagecause",
-        "event-object",
+        "event-itemstack",
         "event-projectile"
       ],
       "cancellable": true
@@ -522,8 +522,8 @@
       "event values": [
         "event-commandsender",
         "event-entity",
+        "event-entity",
         "event-location",
-        "event-object",
         "event-transformreason",
         "event-world"
       ],
@@ -623,11 +623,11 @@
         "[on] [a] firework explo(d(e|ing)|sion) [colo[u]red %colors%]"
       ],
       "event values": [
+        "event-color",
         "event-commandsender",
         "event-entity",
         "event-fireworkeffect",
         "event-location",
-        "event-object",
         "event-projectile",
         "event-world"
       ],
@@ -761,8 +761,8 @@
       ],
       "event values": [
         "event-block",
+        "event-itemstack",
         "event-location",
-        "event-object",
         "event-player",
         "event-world"
       ],
@@ -820,11 +820,11 @@
       ],
       "event values": [
         "event-block",
+        "event-block",
         "event-location",
-        "event-object",
         "event-world",
         "future event-block",
-        "future event-object",
+        "future event-block",
         "past event-block"
       ],
       "cancellable": true
@@ -1205,10 +1205,10 @@
         "[on] ([player] %inputkeys%|[an|any [player]] input key) (toggle|toggling|press[ing]|release|releasing)"
       ],
       "event values": [
-        "event-object",
+        "event-inputkey",
         "event-player",
         "event-world",
-        "past event-object"
+        "past event-inputkey"
       ],
       "cancellable": false,
       "required plugins": [
