@@ -27,6 +27,18 @@
     {
       "id": "block_drop",
       "name": "On Block Drop",
+      "description": [
+        "Called when a block broken by a player drops something.",
+        "<ul>",
+        "event-player: The player that broke the block",
+        "past event-block: The block that was broken",
+        "event-block: The block after being broken",
+        "event-items (or drops): The drops of the block",
+        "event-entities: The entities of the dropped items",
+        "</ul>",
+        "",
+        "If the breaking of the block leads to others being broken, such as torches, they will appearin \"event-items\" and \"event-entities\"."
+      ],
       "examples": [
         "on block drop:",
         "\tbroadcast event-player",
@@ -366,6 +378,15 @@
       "description": [
         "Called when a player drops an item from their inventory, or an entity drops an item, such as a chicken laying an egg."
       ],
+      "examples": [
+        "on drop:",
+        "\tif event-item is compass:",
+        "\t\tcancel event",
+        "",
+        "on entity drop of an egg:",
+        "\tif event-entity is a chicken:",
+        "\t\tset item of event-dropped item to a diamond"
+      ],
       "since": [
         "unknown (before 2.1), 2.7 (entity)"
       ],
@@ -389,6 +410,15 @@
       "description": [
         "Called when an enderman places or picks up a block, a sheep eats grass, a silverfish boops into/out of a block or a falling block lands and turns into a block respectively.",
         "event-block represents the old block and event-blockdata represents the new replacement that'll be applied to the block."
+      ],
+      "examples": [
+        "on sheep eat:",
+        "\tkill event-entity",
+        "\tbroadcast \"A sheep stole some grass!\"",
+        "",
+        "on falling block land:",
+        "\tevent-entity is a falling dirt",
+        "\tcancel event"
       ],
       "since": [
         "unknown, 2.5.2 (falling block), 2.8.0 (any entity support)"
@@ -446,6 +476,12 @@
       "description": [
         "Called when an entity's potion effect is modified.",
         "This modification can include adding, removing or changing their potion effect."
+      ],
+      "examples": [
+        "on entity potion effect modification:",
+        "\t\tbroadcast \"A potion effect was added to %event-entity%!\" ",
+        "",
+        "on entity potion effect modification of night vision:"
       ],
       "since": [
         "2.10"
@@ -942,6 +978,19 @@
       "description": [
         "Called when an entity is leashed or unleashed. Cancelling these events will prevent the leashing or unleashing from occurring."
       ],
+      "examples": [
+        "on player leash of a sheep:",
+        "\tsend \"Baaaaa--\" to player",
+        "",
+        "on player leash:",
+        "\tsend \"<%event-entity%> Let me go!\" to player",
+        "",
+        "on unleash:",
+        "\tbroadcast \"<%event-entity%> I'm free\"",
+        "",
+        "on player unleash:",
+        "\tsend \"<%event-entity%> Thanks for freeing me!\" to player"
+      ],
       "since": [
         "2.10"
       ],
@@ -1224,6 +1273,22 @@
     {
       "id": "resource_pack_request_response",
       "name": "On Resource Pack Request Response",
+      "description": [
+        "Called when a player takes action on a resource pack request sent via the ",
+        "send resource pack effect. ",
+        "The resource pack condition can be used ",
+        "to check the resource pack state.",
+        "",
+        "This event will be triggered once when the player accepts or declines the resource pack request, ",
+        "and once when the resource pack is successfully installed or failed to download."
+      ],
+      "examples": [
+        "on resource pack request response:",
+        "\tif the resource pack was declined or failed to download:",
+        "",
+        "on resource pack deny:",
+        "\tkick the player due to \"You have to install the resource pack to play in this server!\""
+      ],
       "since": [
         "2.4"
       ],
@@ -1423,6 +1488,13 @@
       "name": "On Stonecutter Recipe Select",
       "description": [
         "Called when a player selects a recipe in a stonecutter."
+      ],
+      "examples": [
+        "on stonecutting stone slabs",
+        "\tcancel the event",
+        "",
+        "on stonecutting:",
+        "\tbroadcast \"%player% is using stonecutter to craft %event-item%!\""
       ],
       "since": [
         "2.8.0"
@@ -1814,6 +1886,14 @@
       "description": [
         "Whether living entities are able to pick up items off the ground or not."
       ],
+      "examples": [
+        "if player can pick items up:",
+        "\tsend \"You can pick up items!\" to player",
+        "",
+        "on drop:",
+        "\tif player can't pick\tup items:",
+        "\t\tsend \"Be careful, you won't be able to pick that up!\" to player"
+      ],
       "since": [
         "2.8.0"
       ],
@@ -1827,6 +1907,13 @@
       "name": "Can See",
       "description": [
         "Checks whether the given players can see the provided entities."
+      ],
+      "examples": [
+        "if sender can't see the player-argument:",
+        "\tmessage \"who dat?\"",
+        "",
+        "if the player can see the last spawned entity:",
+        "\tmessage \"hello there!\""
       ],
       "since": [
         "2.3, 2.10 (entities)"
@@ -2326,6 +2413,16 @@
       "description": [
         "Checks whether an entity or block has a loot table. The loot tables of chests will be deleted when the chest is opened or broken."
       ],
+      "examples": [
+        "set event-block to chest",
+        "if event-block has a loot table:",
+        "\t# this will never happen, because it doesn't have a loot table.",
+        "",
+        "set loot table of event-block to \"minecraft:chests/simple_dungeon\"",
+        "",
+        "if event-block has a loot table:",
+        "\t# this will happen, because it now has a loot table."
+      ],
       "since": [
         "2.10"
       ],
@@ -2393,6 +2490,13 @@
       "name": "Has Potion",
       "description": [
         "Checks whether the given living entities have specific potion effects."
+      ],
+      "examples": [
+        "if player has potion speed:",
+        "\tsend \"You are sonic!\"",
+        "",
+        "if all players have potion effects speed and haste:",
+        "\tbroadcast \"You are ready to MINE!\""
       ],
       "since": [
         "2.6.1"
@@ -2469,6 +2573,21 @@
         "Checks whether a date is in the past or future.",
         "Note that using the 'now' expression will not be in the past or future when used directly in the condition."
       ],
+      "examples": [
+        "set {_date} to now",
+        "wait 5 seconds",
+        "if {_date} is in the past:",
+        "\t# this will be true",
+        "",
+        "if now is in the future:",
+        "\t# this will be false",
+        "",
+        "set {_dates::*} to 1 day from now, 12 days from now, and 1 year from now",
+        "if {_dates::*} are in the future:",
+        "\t# this will be true",
+        "if {_dates::*} have passed:",
+        "\t# this will be false"
+      ],
       "since": [
         "2.10"
       ],
@@ -2501,6 +2620,12 @@
       "name": "Is Alive",
       "description": [
         "Checks whether an entity is alive. Works for non-living entities too."
+      ],
+      "examples": [
+        "if {villager-buddy::%player's uuid%} is not dead:",
+        "",
+        "on shoot:",
+        "\twhile the projectile is alive:"
       ],
       "since": [
         "2.0, 2.4-alpha4 (non-living entity support)"
@@ -3112,6 +3237,13 @@
       "description": [
         "Checks whether an entity or a gamemode is invulnerable.\nFor gamemodes, Paper and Minecraft 1.20.6 are required"
       ],
+      "examples": [
+        "target entity is invulnerable",
+        "",
+        "loop all gamemodes:",
+        "\tif loop-value is not invulnerable:",
+        "\t\tbroadcast \"the gamemode %loop-value% is vulnerable!\""
+      ],
       "since": [
         "2.5, 2.10 (gamemode)"
       ],
@@ -3254,6 +3386,19 @@
       "name": "Is Online",
       "description": [
         "Checks whether a player is online. The 'connected' pattern will return false once this player leaves the server, even if they rejoin. Be aware that using the 'connected' pattern with a variable will not have this special behavior. Use the direct event-player or other non-variable expression for best results."
+      ],
+      "examples": [
+        "player is online",
+        "player-argument is offline",
+        "while player is connected:",
+        "\twait 60 seconds",
+        "\tsend \"hello!\" to player",
+        "",
+        "# The following will act like `{_player} is online`.",
+        "# Using variables with `is connected` will not behave the same as with non-variables.",
+        "while {_player} is connected:",
+        "\tbroadcast \"online!\"",
+        "\twait 1 tick"
       ],
       "since": [
         "1.4"
@@ -3662,6 +3807,12 @@
       "description": [
         "Checks whether an item, block, entity, or entitydata is tagged with the given tag."
       ],
+      "examples": [
+        "if player's tool is tagged with minecraft tag \"enchantable/sharp_weapon\":",
+        "\tenchant player's tool with sharpness 1",
+        "",
+        "if all logs are tagged with tag \"minecraft:logs\""
+      ],
       "since": [
         "2.10"
       ],
@@ -3860,6 +4011,17 @@
         "Whether a location is within something else. The \"something\" can be a block, an entity, a chunk, a world, or a cuboid formed by two other locations.",
         "Note that using the is between condition will refer to a straight line between locations, while this condition will refer to the cuboid between locations."
       ],
+      "examples": [
+        "if player's location is within {_loc1} and {_loc2}:",
+        "\tsend \"You are in a PvP zone!\" to player",
+        "",
+        "if player is in world(\"world\"):",
+        "\tsend \"You are in the overworld!\" to player",
+        "",
+        "if attacker's location is inside of victim:",
+        "\tcancel event",
+        "\tsend \"Back up!\" to attacker and victim"
+      ],
       "since": [
         "2.7"
       ],
@@ -3898,6 +4060,14 @@
       "name": "Is a Skript command",
       "description": [
         "Checks whether a command/string is a custom Skript command."
+      ],
+      "examples": [
+        "# Example 1",
+        "on command:",
+        "\tcommand is a skript command",
+        "",
+        "# Example 2",
+        "\"sometext\" is a skript command"
       ],
       "since": [
         "2.6"
@@ -3947,6 +4117,17 @@
       "name": "Item Has Enchantment Glint Override",
       "description": [
         "Checks whether an item has the enchantment glint overridden, or is forced to glint or not."
+      ],
+      "examples": [
+        "if the player's tool has the enchantment glint override",
+        "\tsend \"Your tool has the enchantment glint override.\" to player",
+        "",
+        "if {_item} is forced to glint:",
+        "\tsend \"This item is forced to glint.\" to player",
+        "else if {_item} is forced to not glint:",
+        "\tsend \"This item is forced to not glint.\" to player",
+        "else:",
+        "\tsend \"This item does not have any glint override.\" to player"
       ],
       "since": [
         "2.10"
@@ -4309,6 +4490,15 @@
     {
       "id": "EffBan",
       "name": "Ban",
+      "description": [
+        "Bans or unbans a player or an IP address.",
+        "If a reason is given, it will be shown to the player when they try to join the server while banned.",
+        "A length of ban may also be given to apply a temporary ban. If it is absent for any reason, a permanent ban will be used instead.",
+        "We recommend that you test your scripts so that no accidental permanent bans are applied.",
+        "",
+        "Note that banning people does not kick them from the server.",
+        "You can optionally use 'and kick' or consider using the kick effect after applying a ban."
+      ],
       "examples": [
         "unban player",
         "ban \"127.0.0.1\"",
@@ -4421,6 +4611,14 @@
       "name": "Cancel Drops",
       "description": [
         "Cancels drops of items or experiences in a death or block break event. Please note that this doesn't keep items or experiences of a dead player. If you want to do that, use the Keep Inventory / Experience effect."
+      ],
+      "examples": [
+        "on death of a zombie:",
+        "\tif name of the entity is \"&cSpecial\":",
+        "\t\tcancel drops of items",
+        "",
+        "on break of a coal ore:",
+        "\tcancel the experience drops"
       ],
       "since": [
         "2.4"
@@ -4830,6 +5028,21 @@
     {
       "id": "EffEntityVisibility",
       "name": "Entity Visibility",
+      "description": [
+        "Change visibility of the given entities for the given players.",
+        "If no players are given, will hide the entities from all online players.",
+        "",
+        "When reveal is used in combination of the hidden players expression and the viewers are not specified, this will default it to the given player in the hidden players expression.",
+        "",
+        "Note: all previously hidden entities (including players) will be visible when a player leaves and rejoins."
+      ],
+      "examples": [
+        "on spawn:",
+        "\tif event-entity is a chicken:",
+        "\t\thide event-entity",
+        "",
+        "reveal hidden players of players"
+      ],
       "since": [
         "2.3, 2.10 (entities)"
       ],
@@ -5038,6 +5251,12 @@
       "description": [
         "Make mobs left or right-handed. This does not affect players."
       ],
+      "examples": [
+        "spawn skeleton at spawn of world \"world\":",
+        "\tmake entity left handed",
+        "",
+        "make all zombies in radius 10 of player right handed"
+      ],
       "since": [
         "2.8.0"
       ],
@@ -5245,6 +5464,16 @@
         "last loaded server icon expression.",
         "Please note that the image must be 64x64 and the file path starts from the server folder."
       ],
+      "examples": [
+        "on load:",
+        "\tclear {server-icons::*}",
+        "\tloop 5 times:",
+        "\t\tload server icon from file \"icons/%loop-number%.png\"",
+        "\t\tadd the last loaded server icon to {server-icons::*}",
+        "",
+        "on server list ping:",
+        "\tset the icon to a random server icon out of {server-icons::*}"
+      ],
       "since": [
         "2.3"
       ],
@@ -5322,6 +5551,17 @@
       "name": "Look At",
       "description": [
         "Forces the mob(s) or player(s) to look at an entity, vector or location. Vanilla max head pitches range from 10 to 50."
+      ],
+      "examples": [
+        "force the player to look towards event-entity's feet",
+        "",
+        "on entity explosion:",
+        "\tset {_player} to the nearest player",
+        "\t{_player} is set",
+        "\tdistance between {_player} and the event-location is less than 15",
+        "\tmake {_player} look towards vector from the {_player} to location of the event-entity",
+        "",
+        "force {_enderman} to face the block 3 meters above {_location} at head rotation speed 100.5 and max head pitch -40"
       ],
       "since": [
         "2.7"
@@ -5650,6 +5890,18 @@
     {
       "id": "EffPlaySound",
       "name": "Play Sound",
+      "description": [
+        "Plays a sound at given location for everyone or just for given players, or plays a sound to specified players. Both Minecraft sound names and Spigot sound names are supported. Playing resource pack sounds are supported too. The sound category is 'master' by default. ",
+        "",
+        "When running 1.19+, playing a sound from an entity directly will result in the sound coming from said entity, even while moving.",
+        "If the sound is custom, a location emitter will follow the entity. Do note that pitch and volume ",
+        "are reflected based on the entity, and Minecraft may not use the values from this syntax.",
+        "",
+        "If using Paper 1.19.4+ or Adventure API 4.12.0+ you can utilize sound seeds. Minecraft sometimes have a set of sounds under one sound ID ",
+        "that will randomly play, to counter this, you can directly state which seed to use.",
+        "",
+        "Please note that sound names can get changed in any Minecraft or Spigot version, or even removed from Minecraft itself."
+      ],
       "examples": [
         "play sound \"block.note_block.pling\"",
         "play sound \"entity.experience_orb.pickup\" with volume 0.5 to the player",
@@ -5719,6 +5971,17 @@
       "description": [
         "Apply or remove potion effects to/from entities."
       ],
+      "examples": [
+        "apply ambient swiftness 2 to the player",
+        "remove haste from the victim",
+        "",
+        "on join:",
+        "\tapply infinite potion of strength of tier {strength::%uuid of player%} to the player",
+        "\tapply potion of strength of tier {strength::%uuid of player%} to the player for 999 days # Before 1.19.4",
+        "",
+        "apply potion effects of player's tool to player",
+        "apply haste potion of tier 3 without any particles whilst hiding the potion icon to the player # Hide potions"
+      ],
       "since": [
         "2.0, 2.2-dev27 (ambient and particle-less potion effects), 2.5 (replacing existing effect), 2.5.2 (potion effects), 2.7 (icon and infinite)"
       ],
@@ -5783,6 +6046,22 @@
     {
       "id": "EffRegisterTag",
       "name": "Register Tag",
+      "description": [
+        "Registers a new tag containing either items or entity datas. Note that items will NOT keep any information other than their type, so adding `diamond sword named \"test\"` to a tag is the same as adding `diamond sword`",
+        "Item tags should be used for contexts where the item is not placed down, while block tags should be used for contexts where the item is placed. For example, and item tag could be \"skript:edible\", while a block tag would be \"skript:needs_water_above\".",
+        "All custom tags will be given the namespace \"skript\", followed by the name you give it. The name must only include the characters A to Z, 0 to 9, and '/', '.', '_', and '-'. Otherwise, the tag will not register.",
+        "",
+        "Please note that two tags can share a name if they are of different types. Registering a new tag of the same name and type will overwrite the existing tag. Tags will reset on server shutdown."
+      ],
+      "examples": [
+        "register a new custom entity tag named \"fish\" using cod, salmon, tropical fish, and pufferfish",
+        "register an item tag named \"skript:wasp_weapons/swords\" containing diamond sword and netherite sword",
+        "register block tag named \"pokey\" containing sweet berry bush and bamboo sapling",
+        "",
+        "on player move:",
+        "\tblock at player is tagged as tag \"skript:pokey\"",
+        "\tdamage the player by 1 heart"
+      ],
       "since": [
         "2.10"
       ],
@@ -5802,6 +6081,17 @@
       "description": [
         "Replaces all occurrences of a given text or regex with another text. Please note that you can only change variables and a few expressions, e.g. a message or a line of a sign."
       ],
+      "examples": [
+        "replace \"<item>\" in {_msg} with \"[%name of player's tool%]\"",
+        "replace every \"&\" with \"§\" in line 1 of targeted block",
+        "",
+        "# Very simple chat censor",
+        "on chat:",
+        "\treplace all \"idiot\" and \"noob\" with \"****\" in the message",
+        "\tregex replace \"\\b(idiot|noob)\\b\" with \"****\" in the message # Regex version using word boundaries for better results",
+        "",
+        "replace all stone and dirt in player's inventory and player's top inventory with diamond"
+      ],
       "since": [
         "2.0, 2.2-dev24 (multiple strings, items in inventory), 2.5 (replace first, case sensitivity), 2.10 (regex)"
       ],
@@ -5819,6 +6109,13 @@
       "name": "Return",
       "description": [
         "Makes a trigger or a section (e.g. a function) return a value"
+      ],
+      "examples": [
+        "function double(i: number) :: number:",
+        "\treturn 2 * {_i}",
+        "",
+        "function divide(i: number) returns number:",
+        "\treturn {_i} / 2"
       ],
       "since": [
         "2.2, 2.8.0 (returns aliases)"
@@ -5853,6 +6150,17 @@
     {
       "id": "EffRotate",
       "name": "Rotate",
+      "description": [
+        "Rotates displays, quaternions, or vectors around an axis a set amount of degrees, or around all 3 axes at once.",
+        "Vectors can only be rotated around the global X/Y/Z axes, or an arbitrary vector axis.",
+        "Quaternions are more flexible, allowing rotation around the global or local X/Y/Z axes, arbitrary vectors, or all 3 local axes at once.",
+        "Global axes are the ones in the Minecraft world. Local axes are relative to how the quaternion is already oriented.",
+        "",
+        "Rotating a display is a shortcut for rotating its left rotation. If the right rotation needs to be modified, it should be acquired, rotated, and re-set.",
+        "",
+        "Note that rotating a quaternion/display around a vector results in a rotation around the local vector, so results may not be what you expect. For example, rotating quaternions/displays around vector(1, 0, 0) is the same as rotating around the local X axis.",
+        "The same applies to rotations by all three axes at once. In addition, rotating around all three axes of a quaternion/display at once will rotate in ZYX order, meaning the Z rotation will be applied first and the X rotation last."
+      ],
       "examples": [
         "rotate {_quaternion} around x axis by 10 degrees",
         "rotate last spawned block display around y axis by 10 degrees",
@@ -5932,6 +6240,18 @@
     {
       "id": "EffSendResourcePack",
       "name": "Send Resource Pack",
+      "description": [
+        "Request that the player's client download and switch resource packs. The client will download ",
+        "the resource pack in the background, and will automatically switch to it once the download is complete. ",
+        "The URL must be a direct download link.",
+        "",
+        "The hash is used for caching, the player won't have to re-download the resource pack that way. ",
+        "The hash must be SHA-1, you can get SHA-1 hash of your resource pack using ",
+        "this online tool.",
+        "",
+        "The resource pack request action can be used to check ",
+        "status of the sent resource pack request."
+      ],
       "examples": [
         "on join:",
         "\tsend the resource pack from \"URL\" with hash \"hash\" to the player"
@@ -6033,6 +6353,11 @@
     {
       "id": "EffStopSound",
       "name": "Stop Sound",
+      "description": [
+        "Stops specific or all sounds from playing to a group of players. Both Minecraft sound names and Spigot sound names are supported. Resource pack sounds are supported too. The sound category is 'master' by default. A sound can't be stopped from a different category. ",
+        "",
+        "Please note that sound names can get changed in any Minecraft or Spigot version, or even removed from Minecraft itself."
+      ],
       "examples": [
         "stop sound \"block.chest.open\" for the player",
         "stop playing sounds \"ambient.underwater.loop\" and \"ambient.underwater.loop.additions\" to the player",
@@ -6096,6 +6421,14 @@
         "The keyword 'force' indicates this effect will not be delayed, ",
         "which may cause lag spikes or server crashes when using this effect to teleport entities to unloaded chunks.",
         "Teleport flags are settings to retain during a teleport. Such as direction, passengers, x coordinate, etc."
+      ],
+      "examples": [
+        "teleport the player to {home::%uuid of player%}",
+        "teleport the attacker to the victim",
+        "",
+        "on dismount:",
+        "\tcancel event",
+        "\tteleport the player to {server::spawn} retaining vehicle and passengers"
       ],
       "since": [
         "1.0, 2.10 (flags)"
@@ -6168,6 +6501,13 @@
     {
       "id": "EffSendTitle",
       "name": "Title - Send",
+      "description": [
+        "Sends a title/subtitle to the given player(s) with optional fadein/stay/fadeout times for Minecraft versions 1.11 and above. ",
+        "",
+        "If you're sending only the subtitle, it will be shown only if there's a title displayed at the moment, otherwise it will be sent with the next title. To show only the subtitle, use: send title \" \" with subtitle \"yourtexthere\" to player.",
+        "",
+        "Note: if no input is given for the times, it will keep the ones from the last title sent, use the reset title effect to restore the default values."
+      ],
       "examples": [
         "send title \"Competition Started\" with subtitle \"Have fun, Stay safe!\" to player for 5 seconds",
         "send title \"Hi %player%\" to player",
@@ -6245,6 +6585,14 @@
       "description": [
         "Determines whether living entities are able to pick up items or not"
       ],
+      "examples": [
+        "forbid player from picking up items",
+        "send \"You can no longer pick up items!\" to player",
+        "",
+        "on drop:",
+        "\tif player can't pick\tup items:",
+        "\t\tallow player to pick up items"
+      ],
       "since": [
         "2.8.0"
       ],
@@ -6261,6 +6609,18 @@
         "Evaluates the given expression for each element in the list, replacing the original element with the expression's result.",
         "If the given expression returns a single value, the indices of the list will not change. If the expression returns multiple values, then then indices will be reset as a single index cannot contain multiple values.",
         "Only variable lists can be transformed with this effect. For other lists, see the transform expression."
+      ],
+      "examples": [
+        "set {_a::*} to 1, 2, and 3",
+        "transform {_a::*} using input * 2",
+        "# {_a::*} is now 2, 4, and 6",
+        "",
+        "# get a list of the sizes of all clans without manually looping",
+        "set {_clan-sizes::*} to indices of {clans::*}",
+        "transform {_clan-sizes::*} using {clans::%input%::size}",
+        "",
+        "# set all existing values of a list to 0:",
+        "transform {_list::*} to 0"
       ],
       "since": [
         "2.10"
@@ -6362,11 +6722,11 @@
       ],
       "return type": "Block",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] absorbed blocks"
@@ -6437,10 +6797,10 @@
       ],
       "return type": "Living Entity",
       "changers": [
+        "add",
         "delete",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] affected entities"
@@ -6467,10 +6827,10 @@
       ],
       "return type": "integer",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] [max[imum]] age of %blocks/entities%",
@@ -6510,11 +6870,11 @@
       ],
       "return type": "Offline Player",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[all [[of] the]|the] [server] [non(-| )]op[erator]s"
@@ -6698,6 +7058,25 @@
     {
       "id": "ExprAmount",
       "name": "Amount",
+      "description": [
+        "The amount or size of something.",
+        "Please note that amount of %items% will not return the number of items, but the number of stacks, e.g. 1 for a stack of 64 torches. To get the amount of items in a stack, see the item amount expression.",
+        "",
+        "Also, you can get the recursive size of a list, which will return the recursive size of the list with sublists included, e.g.",
+        "",
+        "<pre>",
+        "{list::*} Structure<br>",
+        "  ├──── {list::1}: 1<br>",
+        "  ├──── {list::2}: 2<br>",
+        "  │     ├──── {list::2::1}: 3<br>",
+        "  │     │    └──── {list::2::1::1}: 4<br>",
+        "  │     └──── {list::2::2}: 5<br>",
+        "  └──── {list::3}: 6",
+        "</pre>",
+        "",
+        "Where using %size of {list::*}% will only return 3 (the first layer of indices only), while %recursive size of {list::*}% will return 6 (the entire list)",
+        "Please note that getting a list's recursive size can cause lag if the list is large, so only use this expression if you need to!"
+      ],
       "examples": [
         "message \"There are %number of all players% players online!\""
       ],
@@ -6759,14 +7138,25 @@
         "Returns the experience cost (in levels) to complete the current repair or the maximum experience cost (in levels) to be allowed by the current repair.",
         "The default value of max cost set by vanilla Minecraft is 40."
       ],
+      "examples": [
+        "on inventory click:",
+        "\tif {AnvilRepairSaleActive} = true:",
+        "\t\twait a tick # recommended, to avoid client bugs",
+        "\t\tset anvil repair cost to anvil repair cost * 50%",
+        "\t\tsend \"Anvil repair sale is ON!\" to player",
+        "",
+        "on inventory click:",
+        "\tplayer have permission \"anvil.repair.max.bypass\"",
+        "\tset max repair cost of event-inventory to 99999"
+      ],
       "since": [
         "2.8.0"
       ],
       "return type": "integer",
       "changers": [
+        "add",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [anvil] [item] [max[imum]] repair cost [of %inventories%]",
@@ -6834,10 +7224,10 @@
       ],
       "return type": "Enchantment Type",
       "changers": [
+        "add",
         "delete",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] applied enchant[ment]s"
@@ -6931,11 +7321,11 @@
       ],
       "return type": "Slot",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] (((boots|shoes)|leg[ging]s|chestplate[s]|helmet[s]) [(item|slot)]|armo[u]r[s]|body armo[u]r) of %livingentities%",
@@ -6959,11 +7349,11 @@
       ],
       "return type": "Block",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] (attached|hit) block of %projectiles%",
@@ -6986,10 +7376,10 @@
       ],
       "return type": "long",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] arrow knockback strength of %projectiles%",
@@ -7010,11 +7400,11 @@
       ],
       "return type": "long",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[number of] arrow[s] stuck in %livingentities%"
@@ -7082,10 +7472,10 @@
       ],
       "return type": "Entity",
       "changers": [
-        "delete",
-        "remove",
+        "remove all",
         "add",
-        "remove all"
+        "delete",
+        "remove"
       ],
       "patterns": [
         "[the] (attacker|damager)"
@@ -7151,10 +7541,10 @@
       ],
       "return type": "Banner Pattern",
       "changers": [
+        "add",
         "delete",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[all [[of] the]|the] banner pattern[s] of %itemstacks/itemtypes/slots/blocks%",
@@ -7222,11 +7612,11 @@
       ],
       "return type": "Object",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "%blocks%['s] primary [beacon] effect",
@@ -7245,6 +7635,20 @@
     {
       "id": "ExprBed",
       "name": "Bed",
+      "description": [
+        "Returns the bed location of a player, i.e. the spawn point of a player if they ever slept in a bed and the bed still exists and is unobstructed however, you can set the unsafe bed location of players and they will respawn there even if it has been obstructed or doesn't exist anymore and that's the default behavior of this expression otherwise you will need to be specific i.e. safe bed location.",
+        "",
+        "NOTE: Offline players can not have their bed location changed, only online players."
+      ],
+      "examples": [
+        "if bed of player exists:",
+        "\tteleport player the the player's bed",
+        "else:",
+        "\tteleport the player to the world's spawn point",
+        "",
+        "set the bed location of player to spawn location of world(\"world\") # unsafe/invalid bed location",
+        "set the safe bed location of player to spawn location of world(\"world\") # safe/valid bed location"
+      ],
       "since": [
         "2.0, 2.7 (offlineplayers, safe bed)"
       ],
@@ -7341,6 +7745,12 @@
         "Get the block data associated with a block.",
         "This data can also be used to set blocks."
       ],
+      "examples": [
+        "set {_data} to block data of target block",
+        "set block at player to {_data}",
+        "",
+        "set block data of target block to oak_stairs[facing=south;waterlogged=true]"
+      ],
       "since": [
         "2.5, 2.5.2 (set), 2.10 (block displays)"
       ],
@@ -7378,6 +7788,12 @@
     {
       "id": "ExprBlockSound",
       "name": "Block Sound",
+      "description": [
+        "Gets the sound that a given block, blockdata, or itemtype will use in a specific scenario.",
+        "This will return a string in the form of \"SOUND_EXAMPLE\", which can be used in the play sound syntax.",
+        "",
+        "Check out this website for a list of sounds in Minecraft, or this one to go to the Sounds wiki page."
+      ],
       "examples": [
         "play sound (break sound of dirt) at all players",
         "set {_sounds::*} to place sounds of dirt, grass block, blue wool and stone"
@@ -7406,11 +7822,11 @@
       ],
       "return type": "Block",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[(all [[of] the]|the)] blocks in radius %number% [(of|around) %location%]",
@@ -7437,11 +7853,11 @@
       ],
       "return type": "Block",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[(all [[of] the]|the)] blocks %direction% [%locations%]",
@@ -7467,9 +7883,9 @@
       ],
       "return type": "Text",
       "changers": [
+        "reset",
         "delete",
-        "set",
-        "reset"
+        "set"
       ],
       "patterns": [
         "[the] [book] (author|writer|publisher) of %itemtypes%",
@@ -7484,15 +7900,22 @@
         "Note: In order to modify the pages of a new written book, you must have the title and author",
         "of the book set. Skript will do this for you, but if you want your own, please set those values."
       ],
+      "examples": [
+        "on book sign:",
+        "\tmessage \"Book Pages: %pages of event-item%\"",
+        "\tmessage \"Book Page 1: %page 1 of event-item%\"",
+        "",
+        "set page 1 of player's held item to \"Book writing\""
+      ],
       "since": [
         "2.2-dev31, 2.7 (changers)"
       ],
       "return type": "Text",
       "changers": [
-        "delete",
-        "set",
         "reset",
-        "add"
+        "add",
+        "delete",
+        "set"
       ],
       "patterns": [
         "[all [[of] the]|the] [book] (pages|content) of %itemtypes/itemstacks%",
@@ -7516,9 +7939,9 @@
       ],
       "return type": "Text",
       "changers": [
+        "reset",
         "delete",
-        "set",
-        "reset"
+        "set"
       ],
       "patterns": [
         "[the] book (name|title) of %itemtypes%",
@@ -7540,10 +7963,10 @@
       ],
       "return type": "Living Entity",
       "changers": [
-        "delete",
-        "remove",
+        "remove all",
         "add",
-        "remove all"
+        "delete",
+        "remove"
       ],
       "patterns": [
         "[the] breeding mother",
@@ -7600,6 +8023,25 @@
       "description": [
         "Returns the Unicode codepoint of a character"
       ],
+      "examples": [
+        "function is_in_order(letters: strings) :: boolean:",
+        "\tloop {_letters::*}:",
+        "\t\tset {_codepoint} to codepoint of lowercase loop-value",
+        "",
+        "\t\treturn false if {_codepoint} is not set # 'loop-value is not a single character'",
+        "",
+        "\t\tif:",
+        "\t\t\t{_previous-codepoint} is set",
+        "\t\t\t# if the codepoint of the current character is not",
+        "\t\t\t#  1 more than the codepoint of the previous character",
+        "\t\t\t#  then the letters are not in order",
+        "\t\t\t{_codepoint} - {_previous-codepoint} is not 1",
+        "\t\tthen:",
+        "\t\t\treturn false",
+        "",
+        "\t\tset {_previous-codepoint} to {_codepoint}",
+        "\treturn true"
+      ],
       "since": [
         "2.9.0"
       ],
@@ -7614,6 +8056,18 @@
       "name": "Character from Codepoint",
       "description": [
         "Returns the character at the specified codepoint"
+      ],
+      "examples": [
+        "function chars_between(lower: string, upper: string) :: strings:",
+        "\tset {_lower} to codepoint of {_lower}",
+        "\treturn {_none} if {_lower} is not set",
+        "",
+        "\tset {_upper} to codepoint of {_upper}",
+        "\treturn {_none} if {_upper} is not set",
+        "",
+        "\tloop integers between {_lower} and {_upper}:",
+        "\t\tadd character from codepoint loop-value to {_chars::*}",
+        "\treturn {_chars::*}"
       ],
       "since": [
         "2.9.0"
@@ -7630,6 +8084,16 @@
         "All characters between two given characters, useful for generating random strings. This expression uses the Unicode numerical code of a character to determine which characters are between the two given characters. The ASCII table linked here shows this ordering for the first 256 characters.",
         "If you would like only alphanumeric characters you can use the 'alphanumeric' option in the expression.",
         "If strings of more than one character are given, only the first character of each is used."
+      ],
+      "examples": [
+        "loop characters from \"a\" to \"f\":",
+        "\tbroadcast \"%loop-value%\"",
+        "",
+        "# 0123456789:;<=>?@ABC... ...uvwxyz",
+        "send characters between \"0\" and \"z\"",
+        "",
+        "# 0123456789ABC... ...uvwxyz",
+        "send alphanumeric characters between \"0\" and \"z\""
       ],
       "since": [
         "2.8.0"
@@ -7653,8 +8117,8 @@
       ],
       "return type": "Text",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] (message|chat) format[ting]"
@@ -7674,12 +8138,12 @@
       ],
       "return type": "Player",
       "changers": [
+        "reset",
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[chat][( |-)]recipients"
@@ -7724,11 +8188,11 @@
       ],
       "return type": "Object",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] (clicked [enchant[ment]] (button|option)|clicked (block|%*itemtype/entitydata%)|clicked slot|clicked inventory|click (type|action)|inventory action)"
@@ -7823,9 +8287,9 @@
       ],
       "return type": "Text",
       "changers": [
+        "reset",
         "delete",
-        "set",
-        "reset"
+        "set"
       ],
       "patterns": [
         "[the] [command[ ]block] command of %blocks/entities%",
@@ -7837,6 +8301,25 @@
       "name": "Command Info",
       "description": [
         "Get information about a command."
+      ],
+      "examples": [
+        "main command label of command \"skript\"",
+        "description of command \"help\"",
+        "label of command \"pl\"",
+        "usage of command \"help\"",
+        "aliases of command \"bukkit:help\"",
+        "permission of command \"/op\"",
+        "command \"op\"'s permission message",
+        "command \"sk\"'s plugin owner",
+        "",
+        "command /greet <player>:",
+        "\tusage: /greet <target>",
+        "\ttrigger:",
+        "\t\tif arg-1 is sender:",
+        "\t\t\tsend \"&cYou can't greet yourself! Usage: %the usage%\"",
+        "\t\t\tstop",
+        "\t\tsend \"%sender% greets you!\" to arg-1",
+        "\t\tsend \"You greeted %arg-1%!\""
       ],
       "since": [
         "2.6"
@@ -7868,6 +8351,12 @@
         "The player or the console who sent a command. Mostly useful in commands and command events.",
         "If the command sender is a command block, its location can be retrieved by using %block's location%"
       ],
+      "examples": [
+        "make the command sender execute \"/say hi!\"",
+        "",
+        "on command:",
+        "\tlog \"%executor% used command /%command% %arguments%\" to \"commands.log\""
+      ],
       "since": [
         "2.0"
       ],
@@ -7894,8 +8383,8 @@
       ],
       "return type": "Location",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] compass target of %players%",
@@ -7957,10 +8446,10 @@
       ],
       "return type": "Object",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] remaining [time] [of [the] (cooldown|wait) [(of|for) [the] [current] command]]",
@@ -8047,11 +8536,11 @@
       ],
       "return type": "Slot",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] cursor slot of %players%",
@@ -8064,16 +8553,25 @@
       "description": [
         "Returns a chest inventory with the given amount of rows and the name. Use the open inventory effect to open it."
       ],
+      "examples": [
+        "open chest inventory with 1 row named \"test\" to player",
+        "",
+        "set {_inventory} to a chest inventory with 1 row",
+        "set slot 4 of {_inventory} to a diamond named \"example\"",
+        "open {_inventory} to player",
+        "",
+        "open chest inventory named \"<#00ff00>hex coloured title!\" with 6 rows to player"
+      ],
       "since": [
         "2.2-dev34, 2.8.0 (chat format)"
       ],
       "return type": "Inventory",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[a] [new] chest inventory (named|with name) %string% [with %number% row[s]]",
@@ -8098,12 +8596,12 @@
       ],
       "return type": "long",
       "changers": [
+        "reset",
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] [custom] model data of %itemtypes%",
@@ -8169,11 +8667,11 @@
       ],
       "return type": "integer",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] (damage[s] [value[s]]|durabilit(y|ies)) of %itemtypes/itemstacks/slots%",
@@ -8348,8 +8846,8 @@
       ],
       "return type": "Display Billboard",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] bill[ |-]board[ing] [setting] [of %displays%]",
@@ -8376,9 +8874,9 @@
       ],
       "return type": "integer",
       "changers": [
+        "reset",
         "delete",
-        "set",
-        "reset"
+        "set"
       ],
       "patterns": [
         "[the] [block|sky] (light [level]|brightness) override[s] of %displays%",
@@ -8400,9 +8898,9 @@
       ],
       "return type": "Color",
       "changers": [
+        "reset",
         "delete",
-        "set",
-        "reset"
+        "set"
       ],
       "patterns": [
         "[the] glow[ing] colo[u]r[s] override[s] [of %displays%]",
@@ -8425,10 +8923,10 @@
       ],
       "return type": "float",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] display (height|width) [of %displays%]",
@@ -8452,10 +8950,10 @@
       ],
       "return type": "Timespan",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] interpolation (delay|duration)[s] [of %displays%]",
@@ -8476,10 +8974,10 @@
       ],
       "return type": "float",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] shadow (radius|strength) [of %displays%]",
@@ -8506,10 +9004,10 @@
       ],
       "return type": "Timespan",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] teleport[ation] duration[s] [of %displays%]",
@@ -8534,8 +9032,8 @@
       ],
       "return type": "Quaternion",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] (left|right) [transformation] rotation [of %displays%]",
@@ -8556,8 +9054,8 @@
       ],
       "return type": "Vector",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] (display|[display] transformation) (scale|translation) of %displays%",
@@ -8580,10 +9078,10 @@
       ],
       "return type": "float",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] [display] view (range|radius) [of %displays%]",
@@ -8623,9 +9121,9 @@
       ],
       "return type": "Item Type",
       "changers": [
+        "add",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] drops"
@@ -8727,9 +9225,9 @@
       ],
       "return type": "long",
       "changers": [
+        "add",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [displayed] ([e]xp[erience]|enchanting) cost"
@@ -8768,9 +9266,9 @@
       ],
       "return type": "long",
       "changers": [
+        "add",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [enchant[ment]] level[s] of %enchantments% (on|of) %itemtypes%",
@@ -8823,9 +9321,9 @@
       ],
       "return type": "long",
       "changers": [
+        "add",
         "delete",
-        "set",
-        "add"
+        "set"
       ],
       "patterns": [
         "[the] [enchant[ment]] cost of %enchantmentoffers%",
@@ -8849,11 +9347,11 @@
       ],
       "return type": "Inventory",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] ender[ ]chest[s] of %players%",
@@ -8879,10 +9377,10 @@
       ],
       "return type": "Entity",
       "changers": [
-        "delete",
-        "remove",
+        "remove all",
         "add",
-        "remove all"
+        "delete",
+        "remove"
       ],
       "patterns": [
         "[(all [[of] the]|the)] %*entitydatas% [(in|of) ([world[s]] %worlds%|%chunks%)]",
@@ -8932,11 +9430,11 @@
       ],
       "return type": "Number",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] %attributetype% [((total|final|modified))] attribute [value] of %entities%",
@@ -8958,11 +9456,11 @@
       ],
       "return type": "Timespan",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [max[imum]] (burn[ing]|fire) (time|duration) of %entities%",
@@ -8985,9 +9483,9 @@
       ],
       "return type": "Offline Player",
       "changers": [
+        "reset",
         "delete",
-        "set",
-        "reset"
+        "set"
       ],
       "patterns": [
         "[the] (owner|tamer) of %livingentities%",
@@ -9071,12 +9569,12 @@
       ],
       "return type": "Number",
       "changers": [
+        "reset",
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] exhaustion of %players%",
@@ -9089,16 +9587,34 @@
       "description": [
         "How much experience was spawned in an experience spawn or block break event. Can be changed."
       ],
+      "examples": [
+        "on experience spawn:",
+        "\tadd 5 to the spawned experience",
+        "",
+        "on break of coal ore:",
+        "\tclear dropped experience",
+        "",
+        "on break of diamond ore:",
+        "\tif tool of player = diamond pickaxe:",
+        "\t\tadd 100 to dropped experience",
+        "",
+        "on breed:",
+        "\tbreeding father is a cow",
+        "\tset dropped experience to 10",
+        "",
+        "on fish catch:",
+        "\tadd 70 to dropped experience"
+      ],
       "since": [
         "2.1, 2.5.3 (block break event), 2.7 (experience change event), 2.10 (breeding, fishing)"
       ],
       "return type": "Experience",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] (spawned|dropped|) [e]xp[erience] [orb[s]]"
@@ -9144,10 +9660,10 @@
       ],
       "return type": "Timespan",
       "changers": [
-        "delete",
-        "set",
         "reset",
-        "add"
+        "add",
+        "delete",
+        "set"
       ],
       "patterns": [
         "[the] (experience|[e]xp) [pickup|collection] cooldown of %players%",
@@ -9160,15 +9676,34 @@
       "description": [
         "Get all the blocks that were destroyed in an explode event. Supports add/remove/set/clear/delete blocks."
       ],
+      "examples": [
+        "on explode:",
+        "\tloop exploded blocks:",
+        "\t\tadd loop-block to {exploded::blocks::*}",
+        "",
+        "on explode:",
+        "\tloop exploded blocks:",
+        "\t\tif loop-block is grass:",
+        "\t\t\tremove loop-block from exploded blocks",
+        "",
+        "on explode:",
+        "\tclear exploded blocks",
+        "",
+        "on explode:",
+        "\tset exploded blocks to blocks in radius 10 around event-entity",
+        "",
+        "on explode:",
+        "\tadd blocks above event-entity to exploded blocks"
+      ],
       "since": [
         "2.5, 2.8.6 (modify blocks)"
       ],
       "return type": "Block",
       "changers": [
+        "add",
         "delete",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] exploded blocks"
@@ -9191,10 +9726,10 @@
       ],
       "return type": "Number",
       "changers": [
+        "add",
         "delete",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [explosion['s]] block (yield|amount)",
@@ -9218,10 +9753,10 @@
       ],
       "return type": "Number",
       "changers": [
+        "add",
         "delete",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] explosion (yield|radius|size)",
@@ -9244,10 +9779,10 @@
       ],
       "return type": "Number",
       "changers": [
+        "add",
         "delete",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] explosive (yield|radius|size) of %entities%",
@@ -9293,9 +9828,9 @@
       ],
       "return type": "Number",
       "changers": [
+        "add",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] fall[en] (distance|height) of %entities%",
@@ -9316,11 +9851,11 @@
       ],
       "return type": "Block",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[all] [the] fertilized blocks"
@@ -9408,10 +9943,10 @@
       ],
       "return type": "float",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "(min[imum]|max[imum]) fish[ing] approach[ing] angle"
@@ -9433,9 +9968,9 @@
       ],
       "return type": "Timespan",
       "changers": [
+        "add",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "fish[ing] bit(e|ing) [wait] time"
@@ -9506,10 +10041,10 @@
       ],
       "return type": "Timespan",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "(min[imum]|max[imum]) fish[ing] wait[ing] time"
@@ -9530,8 +10065,8 @@
       ],
       "return type": "Boolean",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] fl(y[ing]|ight) (mode|state) of %players%",
@@ -9552,11 +10087,11 @@
       ],
       "return type": "Number",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] (food|hunger)[[ ](level|met(er|re)|bar)] [of %players%]",
@@ -9648,11 +10183,11 @@
       ],
       "return type": "Timespan",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] freeze time of %entities%",
@@ -9728,11 +10263,11 @@
       ],
       "return type": "Slot",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] (ore|input) slot[s] [of %blocks%]",
@@ -9767,10 +10302,10 @@
       ],
       "return type": "Timespan",
       "changers": [
+        "add",
         "delete",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [furnace] cook[ing] time [of %blocks%]",
@@ -9796,8 +10331,8 @@
       ],
       "return type": "Game Mode",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] game[ ]mode of %players%",
@@ -9841,8 +10376,8 @@
       ],
       "return type": "Boolean",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] (gliding|glider) [state] of %livingentities%",
@@ -9863,8 +10398,8 @@
       ],
       "return type": "Boolean",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] glowing of %entities%",
@@ -9885,8 +10420,8 @@
       ],
       "return type": "Boolean",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] gravity of %entities%",
@@ -9911,10 +10446,10 @@
       ],
       "return type": "Entity",
       "changers": [
-        "delete",
-        "remove",
+        "remove all",
         "add",
-        "remove all"
+        "delete",
+        "remove"
       ],
       "patterns": [
         "[the] hanging (entity|remover)"
@@ -9965,8 +10500,8 @@
       ],
       "return type": "Entity Type",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] hatching entity [type]"
@@ -9988,9 +10523,9 @@
       ],
       "return type": "byte",
       "changers": [
+        "add",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] hatching number"
@@ -10069,11 +10604,11 @@
       ],
       "return type": "Number",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] health of %livingentities%",
@@ -10094,9 +10629,9 @@
       ],
       "return type": "Player",
       "changers": [
-        "remove",
+        "remove all",
         "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[(all [[of] the]|the)] hidden players (of|for) %players%",
@@ -10123,10 +10658,10 @@
       ],
       "return type": "integer",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] [max[imum]] domestication level of %livingentities%",
@@ -10178,6 +10713,16 @@
         "To retrieve its number use Slot Index expression.",
         "Use future and past tense to grab the previous slot in an item change event, see example."
       ],
+      "examples": [
+        "message \"%player's current hotbar slot%\"",
+        "set player's selected hotbar slot to slot 4 of player",
+        "",
+        "send \"index of player's current hotbar slot = 1\" # second slot from the left",
+        "",
+        "on item held change:",
+        "\tif the selected hotbar slot was a diamond:",
+        "\t\tset the currently selected hotbar slot to slot 5 of player"
+      ],
       "since": [
         "2.2-dev36"
       ],
@@ -10210,11 +10755,11 @@
       ],
       "return type": "Text",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [custom] [player|server] (hover|sample) ([message] list|message)",
@@ -10247,6 +10792,16 @@
       "name": "IP",
       "description": [
         "The IP address of a player, or the connected player in a connect event, or the pinger in a server list ping event."
+      ],
+      "examples": [
+        "ban the IP address of the player",
+        "broadcast \"Banned the IP %IP of player%\"",
+        "",
+        "on connect:",
+        "\tlog \"[%now%] %player% (%ip%) is connected to the server.\"",
+        "",
+        "on server list ping:",
+        "\tsend \"%IP-address%\" to the console"
       ],
       "since": [
         "1.4, 2.2-dev26 (when used in connect event), 2.3 (when used in server list ping event)"
@@ -10285,6 +10840,19 @@
         "To sort the indices, all objects in the list must be comparable;",
         "Otherwise, this expression will just return the unsorted indices."
       ],
+      "examples": [
+        "set {l::*} to \"some\", \"cool\" and \"values\"",
+        "broadcast \"%indices of {l::*}%\" # result is 1, 2 and 3",
+        "",
+        "set {_leader-board::first} to 17",
+        "set {_leader-board::third} to 30",
+        "set {_leader-board::second} to 25",
+        "set {_leader-board::fourth} to 42",
+        "set {_ascending-indices::*} to sorted indices of {_leader-board::*} in ascending order",
+        "broadcast \"%{_ascending-indices::*}%\" #result is first, second, third, fourth",
+        "set {_descending-indices::*} to sorted indices of {_leader-board::*} in descending order",
+        "broadcast \"%{_descending-indices::*}%\" #result is fourth, third, second, first"
+      ],
       "since": [
         "2.4 (indices), 2.6.1 (sorting)"
       ],
@@ -10312,11 +10880,11 @@
       ],
       "return type": "Inventory",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] [event-]initiator[( |-)inventory]"
@@ -10361,11 +10929,11 @@
       ],
       "return type": "Object",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] inventor(y|ies) of %inventoryholders/itemtypes%",
@@ -10414,6 +10982,11 @@
     {
       "id": "ExprInventoryInfo",
       "name": "Inventory Holder/Viewers/Rows/Slots",
+      "description": [
+        "Gets the amount of rows/slots, viewers and holder of an inventory.",
+        "",
+        "NOTE: 'Viewers' expression returns a list of players viewing the inventory. Note that a player is considered to be viewing their own inventory and internal crafting screen even when said inventory is not open."
+      ],
       "examples": [
         "event-inventory's amount of rows",
         "holder of player's top inventory",
@@ -10424,9 +10997,9 @@
       ],
       "return type": "Object",
       "changers": [
-        "remove",
+        "remove all",
         "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "(holder[s]|viewers|[amount of] rows|[amount of] slots) of %inventories%",
@@ -10451,11 +11024,11 @@
       ],
       "return type": "Slot",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] slot[s] %numbers% of %inventory%",
@@ -10495,11 +11068,11 @@
       ],
       "return type": "long",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] item[[ ]stack] (amount|size|number) of %slots/itemtypes/itemstacks%",
@@ -10523,11 +11096,11 @@
       ],
       "return type": "Timespan",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [item] cooldown of %itemtypes% for %players%",
@@ -10549,8 +11122,8 @@
       ],
       "return type": "Item Display Transforms",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] item [display] transform [of %displays%]",
@@ -10571,12 +11144,12 @@
       ],
       "return type": "Enchantment Type",
       "changers": [
+        "reset",
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] enchantments of %itemtypes%",
@@ -10599,11 +11172,11 @@
       ],
       "return type": "Item Flag",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] item flags of %itemtypes%",
@@ -10619,16 +11192,21 @@
         "For throwable projectiles (snowballs, enderpearls etc.) or item displays, it gets the displayed item.",
         "Other entities do not have items associated with them."
       ],
+      "examples": [
+        "item of event-entity",
+        "",
+        "set the item inside of event-entity to a diamond sword named \"Example\""
+      ],
       "since": [
         "2.2-dev35, 2.2-dev36 (improved), 2.5.2 (throwable projectiles), 2.10 (item displays)"
       ],
       "return type": "Slot",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] item [inside] of %entities%",
@@ -10758,11 +11336,11 @@
       ],
       "return type": "Slot",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[all [[of] the]] items ([with]in|of|contained in|out of) [inventor(y|ies)] %inventories%",
@@ -10860,9 +11438,9 @@
       ],
       "return type": "Number",
       "changers": [
+        "add",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] last damage of %livingentities%",
@@ -10883,11 +11461,11 @@
       ],
       "return type": "Damage Cause",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] last damage (cause|reason|type) of %livingentities%",
@@ -10910,9 +11488,9 @@
       ],
       "return type": "Location",
       "changers": [
+        "reset",
         "delete",
-        "set",
-        "reset"
+        "set"
       ],
       "patterns": [
         "[the] [last] death location[s] of %offlineplayers%",
@@ -11022,10 +11600,10 @@
       ],
       "return type": "Entity",
       "changers": [
-        "delete",
-        "remove",
+        "remove all",
         "add",
-        "remove all"
+        "delete",
+        "remove"
       ],
       "patterns": [
         "[the] leash holder[s] of %livingentities%",
@@ -11065,11 +11643,11 @@
       ],
       "return type": "long",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] level of %players%",
@@ -11103,11 +11681,11 @@
       ],
       "return type": "Number",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] level progress of %players%",
@@ -11142,6 +11720,12 @@
       "name": "Loaded Plugins",
       "description": [
         "An expression to obtain a list of the names of the server's loaded plugins."
+      ],
+      "examples": [
+        "if the loaded plugins contains \"Vault\":",
+        "\tbroadcast \"This server uses Vault plugin!\"",
+        "",
+        "send \"Plugins (%size of loaded plugins%): %plugins%\" to player"
       ],
       "since": [
         "2.7"
@@ -11211,6 +11795,17 @@
       "description": [
         "Returns the loop's current iteration count (for both normal and while loops)."
       ],
+      "examples": [
+        "while player is online:",
+        "\tgive player 1 stone",
+        "\twait 5 ticks",
+        "\tif loop-counter > 30:",
+        "\t\tstop loop",
+        "",
+        "loop {top-balances::*}:",
+        "\tif loop-iteration <= 10:",
+        "\t\tbroadcast \"#%loop-iteration% %loop-index% has $%loop-value%\""
+      ],
       "since": [
         "2.8.0"
       ],
@@ -11224,6 +11819,29 @@
       "name": "Loop value",
       "description": [
         "Returns the previous, current, or next looped value."
+      ],
+      "examples": [
+        "# Countdown",
+        "loop 10 times:",
+        "\tmessage \"%11 - loop-number%\"",
+        "\twait a second",
+        "",
+        "# Generate a 10x10 floor made of randomly colored wool below the player",
+        "loop blocks from the block below the player to the block 10 east of the block below the player:",
+        "\tloop blocks from the loop-block to the block 10 north of the loop-block:",
+        "\t\tset loop-block-2 to any wool",
+        "",
+        "loop {top-balances::*}:",
+        "\tloop-iteration <= 10",
+        "\tsend \"#%loop-iteration% %loop-index% has $%loop-value%\"",
+        "",
+        "loop shuffled (integers between 0 and 8):",
+        "\tif all:",
+        "\t\tprevious loop-value = 1",
+        "\t\tloop-value = 4",
+        "\t\tnext loop-value = 8",
+        "\tthen:",
+        "\t\t kill all players"
       ],
       "since": [
         "1.0, 2.8.0 (loop-counter), 2.10 (previous, next)"
@@ -11252,10 +11870,10 @@
       ],
       "return type": "Item",
       "changers": [
+        "add",
         "delete",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] loot"
@@ -11312,14 +11930,20 @@
         "Setting the loot table of a block will update the block state, and once opened will generate loot of the specified loot table. Please note that doing so may cause warnings in the console due to over-filling the chest.",
         "Please note that resetting/deleting the loot table of an ENTITY will reset the entity's loot table to its default."
       ],
+      "examples": [
+        "set loot table of event-entity to \"minecraft:entities/ghast\"",
+        "# this will set the loot table of the entity to a ghast's loot table, thus dropping ghast tears and gunpowder",
+        "",
+        "set loot table of event-block to \"minecraft:chests/simple_dungeon\""
+      ],
       "since": [
         "2.10"
       ],
       "return type": "Loot Table",
       "changers": [
+        "reset",
         "delete",
-        "set",
-        "reset"
+        "set"
       ],
       "patterns": [
         "[the] loot[ ]table[s] of %entities/blocks%",
@@ -11349,6 +11973,13 @@
       "description": [
         "Returns the items of a loot table using a loot context. Not specifying a loot context will use a loot context with a location at the world's origin."
       ],
+      "examples": [
+        "set {_items::*} to loot items of the loot table \"minecraft:chests/simple_dungeon\" with loot context {_context}",
+        "# this will set {_items::*} to the items that would be dropped from the simple dungeon loot table with the given loot context",
+        "",
+        "give player loot items of entity's loot table with loot context {_context}",
+        "# this will give the player the items that the entity would drop with the given loot context"
+      ],
       "since": [
         "2.10"
       ],
@@ -11364,6 +11995,14 @@
       "description": [
         "Returns the looted entity of a loot context."
       ],
+      "examples": [
+        "set {_entity} to looted entity of {_context}",
+        "",
+        "set {_context} to a loot context at player:",
+        "\tset loot luck value to 10",
+        "\tset looter to player",
+        "\tset looted entity to last spawned pig"
+      ],
       "since": [
         "2.10"
       ],
@@ -11378,6 +12017,14 @@
       "name": "Looter of Loot Context",
       "description": [
         "Returns the looter of a loot context. Note that setting the looter will read the looter's tool enchantments (e.g. looting) when generating loot."
+      ],
+      "examples": [
+        "set {_killer} to looter of {_context}",
+        "",
+        "set {_context} to a loot context at player:",
+        "\tset loot luck value to 10",
+        "\tset looter to player",
+        "\tset looted entity to last spawned pig"
       ],
       "since": [
         "2.10"
@@ -11426,10 +12073,10 @@
       ],
       "return type": "Timespan",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] love[d] time of %livingentities%",
@@ -11452,11 +12099,11 @@
       ],
       "return type": "Block",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] (highest|lowest) [solid] block (at|of) %locations%",
@@ -11468,6 +12115,14 @@
       "name": "Luck of Loot Context",
       "description": [
         "Returns the luck of a loot context as a float. This represents the luck potion effect that an entity can have."
+      ],
+      "examples": [
+        "set {_luck} to loot luck value of {_context}",
+        "",
+        "set {_context} to a loot context at player:",
+        "\tset loot luck value to 10",
+        "\tset looter to player",
+        "\tset looted entity to last spawned pig"
       ],
       "since": [
         "2.10"
@@ -11494,9 +12149,9 @@
       ],
       "return type": "Text",
       "changers": [
+        "reset",
         "delete",
-        "set",
-        "reset"
+        "set"
       ],
       "patterns": [
         "[the] [(default)|(shown|displayed)] (MOTD|message of [the] day)"
@@ -11522,11 +12177,11 @@
       ],
       "return type": "integer",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] max[imum] (durabilit(y|ies)|damage) of %itemtypes/itemstacks/slots%",
@@ -11553,10 +12208,10 @@
       ],
       "return type": "Number",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] max[imum] health of %livingentities%",
@@ -11601,10 +12256,10 @@
       ],
       "return type": "Number",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] max[imum] minecart (speed|velocity) of %entities%",
@@ -11627,11 +12282,11 @@
       ],
       "return type": "integer",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [(real|default)|(fake|shown|displayed)] max[imum] player[s] [count|amount|number|size]",
@@ -11678,10 +12333,10 @@
       ],
       "return type": "integer",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] max[imum] stack[[ ]size] of %itemtypes/inventories%",
@@ -11707,9 +12362,9 @@
       ],
       "return type": "Player",
       "changers": [
-        "remove",
+        "remove all",
         "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "me",
@@ -11732,10 +12387,10 @@
       ],
       "return type": "long",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] [mending] repair amount"
@@ -11746,6 +12401,30 @@
       "name": "Message",
       "description": [
         "The (chat) message of a chat event, the join message of a join event, the quit message of a quit event, the death message of a death event or the broadcasted message in a broadcast event. This expression is mostly useful for being changed."
+      ],
+      "examples": [
+        "on chat:",
+        "\tplayer has permission \"admin\"",
+        "\tset message to \"&c%message%\"",
+        "",
+        "on first join:",
+        "\tset join message to \"Welcome %player% to our awesome server!\"",
+        "",
+        "on join:",
+        "\tplayer has played before",
+        "\tset join message to \"Welcome back, %player%!\"",
+        "",
+        "on quit:",
+        "\tif {vanish::%player's uuid%} is set:",
+        "\t\tclear quit message",
+        "\telse:",
+        "\t\tset quit message to \"%player% left this awesome server!\"",
+        "",
+        "on death:",
+        "\tset the death message to \"%player% died!\"",
+        "",
+        "on broadcast:",
+        "\tset broadcast message to \"&a[BROADCAST] %broadcast message%\""
       ],
       "since": [
         "1.4.6 (chat message), 1.4.9 (join & quit messages), 2.0 (death message), 2.9.0 (clear message), 2.10 (broadcasted message)"
@@ -11779,10 +12458,10 @@
       ],
       "return type": "Object",
       "changers": [
+        "add",
         "delete",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "metadata [(value|tag)[s]] %strings% of %metadataholders%",
@@ -11826,9 +12505,9 @@
       ],
       "return type": "Vector",
       "changers": [
+        "add",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [minecart] (derailed|flying) velocity of %entities%",
@@ -11871,11 +12550,11 @@
       ],
       "return type": "Block",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] moved blocks"
@@ -11884,6 +12563,32 @@
     {
       "id": "ExprName",
       "name": "Name / Display Name / Tab List Name",
+      "description": [
+        "Represents the Minecraft account, display or tab list name of a player, or the custom name of an item, entity, block, inventory, gamerule, world, script or function.",
+        "",
+        "Players:",
+        "\tName: The Minecraft account name of the player. Can't be changed, but 'display name' can be changed.",
+        "\tDisplay Name: The name of the player that is displayed in messages. This name can be changed freely and can include color codes, and is shared among all plugins (e.g. chat plugins will use the display name).",
+        "",
+        "Entities:",
+        "\tName: The custom name of the entity. Can be changed. But for living entities, the players will have to target the entity to see its name tag. For non-living entities, the name will not be visible at all. To prevent this, use 'display name'.",
+        "\tDisplay Name: The custom name of the entity. Can be changed, which will also enable custom name visibility of the entity so name tag of the entity will be visible always.",
+        "",
+        "Items:",
+        "\tName and Display Name: The custom name of the item (not the Minecraft locale name). Can be changed.",
+        "",
+        "Inventories:",
+        "\tName and Display Name: The name/title of the inventory. Changing name of an inventory means opening the same inventory with the same contents but with a different name to its current viewers.",
+        "",
+        "Gamerules:",
+        "\tName: The name of the gamerule. Cannot be changed.",
+        "",
+        "Worlds:",
+        "\tName: The name of the world. Cannot be changed.",
+        "",
+        "Scripts:",
+        "\tName: The name of a script, excluding its file extension."
+      ],
       "examples": [
         "on join:",
         "\tplayer has permission \"name.red\"",
@@ -11899,8 +12604,8 @@
       ],
       "return type": "Text",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] name[s] of %offlineplayers/entities/nameds/inventories%",
@@ -11936,6 +12641,14 @@
       "name": "Nearest Entity",
       "description": [
         "Gets the entity nearest to a location or another entity."
+      ],
+      "examples": [
+        "kill the nearest pig and cow relative to player",
+        "teleport player to the nearest cow relative to player",
+        "teleport player to the nearest entity relative to player",
+        "",
+        "on click:",
+        "\tkill nearest pig"
       ],
       "since": [
         "2.7"
@@ -11980,11 +12693,11 @@
       ],
       "return type": "long",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] (invulnerability|invincibility|no damage) tick[s] of %livingentities%",
@@ -12110,11 +12823,11 @@
       ],
       "return type": "long",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [((real|default)|(fake|shown|displayed))] [online] player (count|amount|number)",
@@ -12139,11 +12852,11 @@
       ],
       "return type": "Inventory",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] (current|open|top) inventory [of %players%]",
@@ -12228,12 +12941,12 @@
       ],
       "return type": "Entity",
       "changers": [
+        "reset",
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] passenger[s] of %entities%",
@@ -12293,11 +13006,11 @@
       ],
       "return type": "Timespan",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] pick[ ]up delay of %entities%",
@@ -12359,11 +13072,11 @@
       ],
       "return type": "Text",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [custom] chat completion[s] of %players%",
@@ -12410,9 +13123,9 @@
       ],
       "return type": "Text",
       "changers": [
+        "reset",
         "delete",
-        "set",
-        "reset"
+        "set"
       ],
       "patterns": [
         "[the] (player|tab)[ ]list (header|footer) [(text|message)] of %players%",
@@ -12480,8 +13193,8 @@
       ],
       "return type": "Weather Type",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] [(client|custom)] weather of %players%",
@@ -12504,11 +13217,11 @@
       ],
       "return type": "Block",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] portal['s] blocks",
@@ -12533,11 +13246,11 @@
       ],
       "return type": "Timespan",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] portal cooldown of %entities%",
@@ -12605,9 +13318,9 @@
       ],
       "return type": "Potion Effect",
       "changers": [
+        "add",
         "delete",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [(all [[of] the]|the)] [active] potion effects of %livingentities/itemtypes%",
@@ -12640,6 +13353,18 @@
     {
       "id": "ExprProtocolVersion",
       "name": "Protocol Version",
+      "description": [
+        "The protocol version that will be sent as the protocol version of the server in a server list ping event. For more information and list of protocol versions visit wiki.vg.",
+        "If this protocol version doesn't match with the protocol version of the client, the client will see the version string.",
+        "But please note that, this expression has no visual effect over the version string. For example if the server uses PaperSpigot 1.12.2, and you make the protocol version 107 (1.9),",
+        "the version string will not be \"Paper 1.9\", it will still be \"Paper 1.12.2\".",
+        "But then you can customize the version string as you wish.",
+        "Also if the protocol version of the player is higher than protocol version of the server, it will say",
+        "\"Server out of date!\", and if vice-versa \"Client out of date!\" when you hover on the ping bars.",
+        "",
+        "This can be set in a server list ping event only",
+        "(increase and decrease effects cannot be used because that wouldn't make sense)."
+      ],
       "examples": [
         "on server list ping:",
         "\tset the version string to \"<light green>Version: <orange>%minecraft version%\"",
@@ -12674,10 +13399,10 @@
       ],
       "return type": "Queue",
       "changers": [
-        "delete",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "delete",
+        "remove"
       ],
       "patterns": [
         "[a] [new] queue [(of|with) %objects%]"
@@ -12697,10 +13422,10 @@
       ],
       "return type": "Object",
       "changers": [
+        "add",
         "delete",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] (start|end) of %queue%",
@@ -12894,11 +13619,11 @@
       ],
       "return type": "Timespan",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] remaining air of %livingentities%",
@@ -12961,11 +13686,11 @@
       ],
       "return type": "integer",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [max[imum]] charge[s] of %blocks%",
@@ -13066,6 +13791,15 @@
     {
       "id": "ExprRotate",
       "name": "Rotated Quaternion/Vector",
+      "description": [
+        "Rotates a quaternion or vector around an axis a set amount of degrees, or around all 3 axes at once.",
+        "Vectors can only be rotated around the global X/Y/Z axes, or an arbitrary vector axis.",
+        "Quaternions are more flexible, allowing rotation around the global or local X/Y/Z axes, arbitrary vectors, or all 3 local axes at once.",
+        "Global axes are the ones in the Minecraft world. Local axes are relative to how the quaternion is already oriented.",
+        "",
+        "Note that rotating a quaternion around a vector results in a rotation around the local vector, so results may not be what you expect. For example, rotating around vector(1, 0, 0) is the same as rotating around the local X axis.",
+        "The same applies to rotations by all three axes at once. In addition, rotating around all three axes of a quaternion/display at once will rotate in ZYX order, meaning the Z rotation will be applied first and the X rotation last."
+      ],
       "examples": [
         "set {_new} to {_quaternion} rotated around x axis by 10 degrees",
         "set {_new} to {_vector} rotated around vector(1, 1, 1) by 45",
@@ -13140,11 +13874,11 @@
       ],
       "return type": "Number",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] saturation of %players%",
@@ -13154,16 +13888,33 @@
     {
       "id": "ExprScoreboardTags",
       "name": "Scoreboard Tags",
+      "description": [
+        "Scoreboard tags are simple list of texts stored directly in the data of an entity.",
+        "So this is a Minecraft related thing, not Bukkit, so the tags will not get removed when the server stops. You can visit visit Minecraft Wiki for more info.",
+        "This is changeable and valid for any type of entity. Also you can use use the Has Scoreboard Tag condition to check whether an entity has the given tags.",
+        "",
+        "Requires Minecraft 1.11+ (actually added in 1.9 to the game, but added in 1.11 to Spigot)."
+      ],
+      "examples": [
+        "on spawn of a monster:",
+        "\tif the spawn reason is mob spawner:",
+        "\t\tadd \"spawned by a spawner\" to the scoreboard tags of event-entity",
+        "",
+        "on death of a monster:",
+        "\tif the attacker is a player:",
+        "\t\tif the victim doesn't have the scoreboard tag \"spawned by a spawner\":",
+        "\t\t\tadd 1$ to attacker's balance"
+      ],
       "since": [
         "2.3"
       ],
       "return type": "Text",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[(all [[of] the]|the)] scoreboard tags of %entities%",
@@ -13238,11 +13989,11 @@
       ],
       "return type": "integer",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [(min|max)[imum]] [sea] pickle(s| (count|amount)) of %blocks%",
@@ -13289,10 +14040,10 @@
       ],
       "return type": "Text",
       "changers": [
+        "reset",
         "delete",
         "set",
-        "remove",
-        "reset"
+        "remove"
       ],
       "patterns": [
         "[the] [sent] [server] command[s] list"
@@ -13355,11 +14106,11 @@
       ],
       "return type": "Living Entity",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] shooter [of %projectile%]"
@@ -13433,6 +14184,19 @@
     {
       "id": "ExprSlotIndex",
       "name": "Slot Index",
+      "description": [
+        "Index of an an inventory slot. Other types of slots may or may not have indices. Note that comparing slots with numbers is also possible; if index of slot is same as the number, comparisonsucceeds. This expression is mainly for the cases where you must for some reason save the slot numbers.",
+        "",
+        "Raw index of slot is unique for the view, see Minecraft Wiki"
+      ],
+      "examples": [
+        "if index of event-slot is 10:",
+        "\tsend \"You bought a pie!\"",
+        "",
+        "if display name of player's top inventory is \"Custom Menu\": # 3 rows inventory",
+        "\tif raw index of event-slot > 27: # outside custom inventory",
+        "\t\tcancel event"
+      ],
       "since": [
         "2.2-dev35, 2.8.0 (raw index)"
       ],
@@ -13475,11 +14239,11 @@
       ],
       "return type": "Block",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] source block"
@@ -13512,6 +14276,22 @@
       "name": "Spawn Egg Entity",
       "description": [
         "Gets or sets the entity snapshot that the provided spawn eggs will spawn when used."
+      ],
+      "examples": [
+        "set {_item} to a zombie spawn egg",
+        "broadcast the spawn egg entity of {_item}",
+        "",
+        "spawn a pig at location(0,0,0):",
+        "\tset the max health of entity to 20",
+        "\tset the health of entity to 20",
+        "\tset {_snapshot} to the entity snapshot of entity",
+        "\tclear entity",
+        "set the spawn egg entity of {_item} to {_snapshot}",
+        "if the spawn egg entity of {_item} is {_snapshot}: # Minecraft 1.20.5+",
+        "",
+        "set the spawn egg entity of {_item} to (random element out of all entities)",
+        "",
+        "set the spawn egg entity of {_item} to a zombie"
       ],
       "since": [
         "2.10"
@@ -13563,8 +14343,8 @@
       ],
       "return type": "Entity Type",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] (spawner|entity|creature) type[s] of %blocks%",
@@ -13595,15 +14375,23 @@
       "description": [
         "Grabs the spectator target entity of the players."
       ],
+      "examples": [
+        "on player start spectating of player:",
+        "\tmessage \"&c%spectator target% currently has %{game::kills::%spectator target%}% kills!\" to the player",
+        "",
+        "on player stop spectating:",
+        "\tpast spectator target was a zombie",
+        "\tset spectator target to the nearest skeleton"
+      ],
       "since": [
         "2.4-alpha4, 2.7 (Paper Spectator Event)"
       ],
       "return type": "Entity",
       "changers": [
-        "delete",
-        "remove",
+        "remove all",
         "add",
-        "remove all"
+        "delete",
+        "remove"
       ],
       "patterns": [
         "spectator target [of %players%]",
@@ -13629,10 +14417,10 @@
       ],
       "return type": "Number",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] (walk[ing]|fl(y[ing]|ight))[( |-)]speed of %players%",
@@ -13822,9 +14610,9 @@
       ],
       "return type": "Player",
       "changers": [
-        "remove",
+        "remove all",
         "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] tamer"
@@ -13839,17 +14627,26 @@
         "Display entities have a hit box of 0, so you should use 'target display' to collect Display entities",
         "May grab entities in unloaded chunks."
       ],
+      "examples": [
+        "on entity target:",
+        "\tif entity's target is a player:",
+        "\t\tsend \"You're being followed by an %entity%!\" to target of entity",
+        "",
+        "reset target of entity # Makes the entity target-less",
+        "delete targeted entity of player # for players it will delete the target",
+        "delete target of last spawned zombie # for entities it will make them target-less"
+      ],
       "since": [
         "1.4.2, 2.7 (Reset), 2.8.0 (ignore blocks)"
       ],
       "return type": "Entity",
       "changers": [
+        "reset",
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] target[[ed] %*entitydata%] [of %livingentities%] [ignoring blocks] [[with|at] ray[ ]size %number%]",
@@ -13878,11 +14675,11 @@
       ],
       "return type": "Block",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] [(actual[ly]|exact)] target[ed] block[s] [of %livingentities%]",
@@ -13957,8 +14754,8 @@
       ],
       "return type": "Display Text Alignment",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] text alignment[s] [of %displays%]",
@@ -13979,10 +14776,10 @@
       ],
       "return type": "integer",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] line width [of %displays%]",
@@ -14004,10 +14801,10 @@
       ],
       "return type": "byte",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] [display] opacity [of %displays%]",
@@ -14029,8 +14826,8 @@
       ],
       "return type": "Text",
       "changers": [
-        "set",
-        "reset"
+        "reset",
+        "set"
       ],
       "patterns": [
         "[the] text[s] of %displays%",
@@ -14076,9 +14873,9 @@
       ],
       "return type": "Time",
       "changers": [
+        "add",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] time[s] [([with]in|of) %worlds%]",
@@ -14092,14 +14889,21 @@
         "The amount of time a player has played for on the server. This info is stored in the player's statistics in the main world's data folder. Changing this will also change the player's stats which can be views in the client's statistics menu.",
         "Using this expression on offline players on Minecraft 1.14 and below will return nothing <none>."
       ],
+      "examples": [
+        "set {_t} to time played of player",
+        "if player's time played is greater than 10 minutes:",
+        "\tgive player a diamond sword",
+        "",
+        "set player's time played to 0 seconds"
+      ],
       "since": [
         "2.5, 2.7 (offline players)"
       ],
       "return type": "Timespan",
       "changers": [
+        "add",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] time played of %offlineplayers%",
@@ -14165,11 +14969,11 @@
       ],
       "return type": "Slot",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] ((tool|held item|weapon)|(off[ ]hand (tool|item))) [of %livingentities%]",
@@ -14183,16 +14987,25 @@
         "The total experience, in points, of players or experience orbs.",
         "Adding to a player's experience will trigger Mending, but setting their experience will not."
       ],
+      "examples": [
+        "set total experience of player to 100",
+        "",
+        "add 100 to player's experience",
+        "",
+        "if player's total experience is greater than 100:",
+        "\tset player's total experience to 0",
+        "\tgive player 1 diamond"
+      ],
       "since": [
         "2.7"
       ],
       "return type": "integer",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] [total] experience of %entities%",
@@ -14223,6 +15036,13 @@
       "description": [
         "Transforms (or 'maps') a list's values using a given expression. This is akin to looping over the list and getting a modified version of each value.",
         "Indices cannot be retained with this expression. To retain indices, see the transform effect."
+      ],
+      "examples": [
+        "set {_a::*} to (1, 2, and 3) transformed using (input * 2 - 1, input * 2)",
+        "# {_a::*} is now 1, 2, 3, 4, 5, and 6",
+        "",
+        "# get a list of the sizes of all clans without manually looping",
+        "set {_clan-sizes::*} to indices of {clans::*} transformed using [{clans::%input%::size}]"
       ],
       "since": [
         "2.10"
@@ -14375,9 +15195,9 @@
       ],
       "return type": "Object",
       "changers": [
+        "reset",
         "delete",
-        "set",
-        "reset"
+        "set"
       ],
       "patterns": [
         "[the] %*classinfo% value [at] %string% (from|in) %node%",
@@ -14392,6 +15212,13 @@
       "name": "Value Within",
       "description": [
         "Gets the value within objects. Usually used with variables to get the value they store rather than the variable itself, or with lists to get the values of a type."
+      ],
+      "examples": [
+        "set {_entity} to a random entity out of all entities",
+        "delete entity within {_entity} # This deletes the entity itself and not the value stored in the variable",
+        "",
+        "set {_list::*} to \"something\", 10, \"test\" and a zombie",
+        "broadcast the strings within {_list::*} # \"something\", \"test\""
       ],
       "since": [
         "2.7"
@@ -14578,9 +15405,9 @@
       ],
       "return type": "Number",
       "changers": [
+        "add",
         "set",
-        "remove",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] (vector|standard|normal) length[s] of %vectors%",
@@ -14761,11 +15588,11 @@
       ],
       "return type": "Vector",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] velocit(y|ies) of %entities%",
@@ -14787,11 +15614,11 @@
       ],
       "return type": "Entity",
       "changers": [
+        "remove all",
+        "add",
         "delete",
         "set",
-        "remove",
-        "add",
-        "remove all"
+        "remove"
       ],
       "patterns": [
         "[the] vehicle[s] of %entities%",
@@ -14863,11 +15690,11 @@
       ],
       "return type": "integer",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] view distance[s] of %players%",
@@ -14923,10 +15750,10 @@
       ],
       "return type": "Number",
       "changers": [
-        "set",
-        "remove",
         "reset",
-        "add"
+        "add",
+        "set",
+        "remove"
       ],
       "patterns": [
         "[the] villager (level|experience) of %livingentities%",
@@ -15040,11 +15867,11 @@
       ],
       "return type": "Offline Player",
       "changers": [
+        "reset",
+        "add",
         "delete",
         "set",
-        "remove",
-        "reset",
-        "add"
+        "remove"
       ],
       "patterns": [
         "[the] white[ ]list"
@@ -16143,6 +16970,13 @@
     {
       "id": "LootContext",
       "name": "Loot Context",
+      "description": [
+        "Represents additional information a loot table can use to modify its generated loot.",
+        "",
+        "Some loot tables will require some values (i.e. looter, location, looted entity) in a loot context when generating loot whereas others may not.",
+        "For example, the loot table of a simple dungeon chest will only require a location, whereas the loot table of a cow will require a looting player, looted entity, and location.",
+        "You can find more information about this in https://minecraft.wiki/w/Loot_context"
+      ],
       "since": [
         "2.10"
       ],
@@ -17512,6 +18346,29 @@
     {
       "id": "SecConditional",
       "name": "Conditionals",
+      "description": [
+        "Conditional sections",
+        "if: executed when its condition is true",
+        "else if: executed if all previous chained conditionals weren't executed, and its condition is true",
+        "else: executed if all previous chained conditionals weren't executed",
+        "",
+        "parse if: a special case of 'if' condition that its code will not be parsed if the condition is not true",
+        "else parse if: another special case of 'else if' condition that its code will not be parsed if all previous chained conditionals weren't executed, and its condition is true"
+      ],
+      "examples": [
+        "if player's health is greater than or equal to 4:",
+        "\tsend \"Your health is okay so far but be careful!\"",
+        "",
+        "else if player's health is greater than 2:",
+        "\tsend \"You need to heal ASAP, your health is very low!\"",
+        "",
+        "else: # Less than 2 hearts",
+        "\tsend \"You are about to DIE if you don't heal NOW. You have only %player's health% heart(s)!\"",
+        "",
+        "parse if plugin \"SomePluginName\" is enabled: # parse if %condition%",
+        "\t# This code will only be executed if the condition used is met otherwise Skript will not parse this section therefore will not give any errors/info about this section",
+        ""
+      ],
       "since": [
         "1.0"
       ],
@@ -17534,6 +18391,16 @@
         "Filters a variable list based on the supplied conditions. Unlike the filter expression, this effect maintains the indices of the filtered list.",
         "It also supports filtering based on meeting any of the given criteria, rather than all, like multi-line if statements."
       ],
+      "examples": [
+        "set {_a::*} to integers between -10 and 10",
+        "",
+        "filter {_a::*} to match:",
+        "\tinput is a number",
+        "\tmod(input, 2) = 0",
+        "\tinput > 0",
+        "",
+        "send {_a::*} # sends 2, 4, 6, 8, and 10"
+      ],
       "since": [
         "2.10"
       ],
@@ -17547,6 +18414,22 @@
       "description": [
         "A specialised loop section run for each element in a list.\nUnlike the basic loop, this is designed for extracting the key & value from pairs.\nThe loop element's key/index and value can be stored in a variable for convenience.\n\nWhen looping a simple (non-indexed) set of values, e.g. all players, the index will be the loop counter number."
       ],
+      "examples": [
+        "for each {_player} in players:",
+        "\tsend \"Hello %{_player}%!\" to {_player}",
+        "",
+        "loop {_item} in {list of items::*}:",
+        "\tbroadcast {_item}'s name",
+        "",
+        "for each key {_index} in {list of items::*}:",
+        "\tbroadcast {_index}",
+        "",
+        "loop key {_index} and value {_value} in {list of items::*}:",
+        "\tbroadcast \"%{_index}% = %{_value}%\"",
+        "",
+        "for each {_index}, {_value} in {my list::*}:",
+        "\tbroadcast \"%{_index}% = %{_value}%\""
+      ],
       "since": [
         "2.10"
       ],
@@ -17559,6 +18442,40 @@
     {
       "id": "SecLoop",
       "name": "Loop",
+      "description": [
+        "Loop sections repeat their code with multiple values.",
+        "",
+        "A loop will loop through all elements of the given expression, e.g. all players, worlds, items, etc. The conditions & effects inside the loop will be executed for every of those elements, which can be accessed with ‘loop-’, e.g. <code>send \"hello\" to loop-player. When a condition inside a loop is not fulfilled the loop will start over with the next element of the loop. You can however use stop loop to exit the loop completely and resume code execution after the end of the loop.",
+        "",
+        "Loopable Values",
+        "All expressions that represent more than one value, e.g. ‘all players’, ‘worlds’, etc., as well as list variables, can be looped. You can also use a list of expressions, e.g. loop the victim and the attacker, to execute the same code for only a few values.",
+        "",
+        "List Variables",
+        "When looping list variables, you can also use loop-index in addition to loop-value inside the loop. loop-value is the value of the currently looped variable, and loop-index is the last part of the variable's name (the part where the list variable has its asterisk *)."
+      ],
+      "examples": [
+        "loop all players:",
+        "\tsend \"Hello %loop-player%!\" to loop-player",
+        "",
+        "loop items in player's inventory:",
+        "\tif loop-item is dirt:",
+        "\t\tset loop-item to air",
+        "",
+        "loop 10 times:",
+        "\tsend title \"%11 - loop-value%\" and subtitle \"seconds left until the game begins\" to player for 1 second # 10, 9, 8 etc.",
+        "\twait 1 second",
+        "",
+        "loop {Coins::*}:",
+        "\tset {Coins::%loop-index%} to loop-value + 5 # Same as \"add 5 to {Coins::%loop-index%}\" where loop-index is the uuid of the player and loop-value is the number of coins for the player",
+        "",
+        "loop shuffled (integers between 0 and 8):",
+        "\tif all:",
+        "\t\tprevious loop-value = 1",
+        "\t\tloop-value = 4",
+        "\t\tnext loop-value = 8",
+        "\tthen:",
+        "\t\t kill all players"
+      ],
       "since": [
         "1.0"
       ],
@@ -17588,6 +18505,26 @@
     {
       "id": "EffSecSpawn",
       "name": "Spawn",
+      "description": [
+        "Spawns entities. This can be used as an effect and as a section.",
+        "",
+        "If it is used as a section, the section is run before the entity is added to the world.",
+        "You can modify the entity in this section, using for example 'event-entity' or 'cow'. ",
+        "Do note that other event values, such as 'player', won't work in this section.",
+        "",
+        "If you're spawning a display and want it to be empty on initialization, like not having a block display be stone, set hidden config node 'spawn empty displays' to true.",
+        "",
+        "Note that when spawning an entity via entity snapshots, the code within the section will not run instantaneously as compared to spawning normally (via 'a zombie')."
+      ],
+      "examples": [
+        "spawn 3 creepers at the targeted block",
+        "spawn a ghast 5 meters above the player",
+        "spawn a zombie at the player:",
+        "\tset name of the zombie to \"\"",
+        "",
+        "spawn a block display of a ladder[waterlogged=true] at location above player:",
+        "\tset billboard of event-display to center # allows the display to rotate around the center axis"
+      ],
       "since": [
         "1.0, 2.6.1 (with section), 2.8.6 (dropped items), 2.10 (entity snapshots)"
       ],
@@ -17604,6 +18541,22 @@
       "name": "While Loop",
       "description": [
         "While Loop sections are loops that will just keep repeating as long as a condition is met."
+      ],
+      "examples": [
+        "while size of all players < 5:",
+        "\tsend \"More players are needed to begin the adventure\" to all players",
+        "\twait 5 seconds",
+        "",
+        "set {_counter} to 1",
+        "do while {_counter} > 1: # false but will increase {_counter} by 1 then get out",
+        "\tadd 1 to {_counter}",
+        "",
+        "# Be careful when using while loops with conditions that are almost ",
+        "# always true for a long time without using 'wait %timespan%' inside it, ",
+        "# otherwise it will probably hang and crash your server.",
+        "while player is online:",
+        "\tgive player 1 dirt",
+        "\twait 1 second # without using a delay effect the server will crash"
       ],
       "since": [
         "2.0, 2.6 (do while)"
@@ -17733,6 +18686,16 @@
         "They can also return a value to the trigger that is executing the function.",
         "Note that local functions come before global functions execution"
       ],
+      "examples": [
+        "function sayMessage(message: text):",
+        "\tbroadcast {_message} # our message argument is available in '{_message}'",
+        "",
+        "local function giveApple(amount: number) :: item:",
+        "\treturn {_amount} of apple",
+        "",
+        "function getPoints(p: player) returns number:",
+        "\treturn {points::%{_p}%}"
+      ],
       "since": [
         "2.2, 2.7 (local functions)"
       ],
@@ -17747,6 +18710,22 @@
         "Options are used for replacing parts of a script with something else.",
         "For example, an option may represent a message that appears in multiple locations.",
         "Take a look at the example below that showcases this."
+      ],
+      "examples": [
+        "options:",
+        "\tno_permission: You're missing the required permission to execute this command!",
+        "",
+        "command /ping:",
+        "\tpermission: command.ping",
+        "\tpermission message: {@no_permission}",
+        "\ttrigger:",
+        "\t\tmessage \"Pong!\"",
+        "",
+        "command /pong:",
+        "\tpermission: command.pong",
+        "\tpermission message: {@no_permission}",
+        "\ttrigger:",
+        "\t\tmessage \"Ping!\""
       ],
       "since": [
         "1.0"
@@ -17779,6 +18758,16 @@
       "description": [
         "Used for defining variables present within a script.",
         "This section is not required, but it ensures that a variable has a value if it doesn't exist when the script is loaded."
+      ],
+      "examples": [
+        "variables:",
+        "\t{joins} = 0",
+        "\t{balance::%player%} = 0",
+        "",
+        "on join:",
+        "\tadd 1 to {joins}",
+        "\tmessage \"Your balance is %{balance::%player%}%\"",
+        ""
       ],
       "since": [
         "1.0"
