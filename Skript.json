@@ -6723,9 +6723,9 @@
       "return type": "Block",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -6828,9 +6828,9 @@
       "return type": "integer",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [max[imum]] age of %blocks/entities%",
@@ -6871,10 +6871,10 @@
       "return type": "Offline Player",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[all [[of] the]|the] [server] [non(-| )]op[erator]s"
@@ -7322,9 +7322,9 @@
       "return type": "Slot",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -7350,9 +7350,9 @@
       "return type": "Block",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -7377,9 +7377,9 @@
       "return type": "long",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] arrow knockback strength of %projectiles%",
@@ -7401,10 +7401,10 @@
       "return type": "long",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[number of] arrow[s] stuck in %livingentities%"
@@ -7473,9 +7473,9 @@
       "return type": "Entity",
       "changers": [
         "remove",
-        "remove all",
         "delete",
-        "add"
+        "add",
+        "remove all"
       ],
       "patterns": [
         "[the] (attacker|damager)"
@@ -7613,10 +7613,10 @@
       "return type": "Object",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "%blocks%['s] primary [beacon] effect",
@@ -7823,9 +7823,9 @@
       "return type": "Block",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -7854,9 +7854,9 @@
       "return type": "Block",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -7883,9 +7883,9 @@
       ],
       "return type": "Text",
       "changers": [
-        "reset",
         "delete",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [book] (author|writer|publisher) of %itemtypes%",
@@ -7912,10 +7912,10 @@
       ],
       "return type": "Text",
       "changers": [
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[all [[of] the]|the] [book] (pages|content) of %itemtypes/itemstacks%",
@@ -7939,9 +7939,9 @@
       ],
       "return type": "Text",
       "changers": [
-        "reset",
         "delete",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] book (name|title) of %itemtypes%",
@@ -7964,9 +7964,9 @@
       "return type": "Living Entity",
       "changers": [
         "remove",
-        "remove all",
         "delete",
-        "add"
+        "add",
+        "remove all"
       ],
       "patterns": [
         "[the] breeding mother",
@@ -8117,8 +8117,8 @@
       ],
       "return type": "Text",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] (message|chat) format[ting]"
@@ -8139,11 +8139,11 @@
       "return type": "Player",
       "changers": [
         "remove",
-        "remove all",
-        "reset",
         "delete",
         "add",
-        "set"
+        "remove all",
+        "set",
+        "reset"
       ],
       "patterns": [
         "[chat][( |-)]recipients"
@@ -8189,9 +8189,9 @@
       "return type": "Object",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -8287,9 +8287,9 @@
       ],
       "return type": "Text",
       "changers": [
-        "reset",
         "delete",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [command[ ]block] command of %blocks/entities%",
@@ -8383,8 +8383,8 @@
       ],
       "return type": "Location",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] compass target of %players%",
@@ -8447,9 +8447,9 @@
       "return type": "Object",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] remaining [time] [of [the] (cooldown|wait) [(of|for) [the] [current] command]]",
@@ -8537,9 +8537,9 @@
       "return type": "Slot",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -8568,9 +8568,9 @@
       "return type": "Inventory",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -8597,11 +8597,11 @@
       "return type": "long",
       "changers": [
         "remove",
-        "remove all",
-        "reset",
         "delete",
         "add",
-        "set"
+        "remove all",
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [custom] model data of %itemtypes%",
@@ -8668,10 +8668,10 @@
       "return type": "integer",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] (damage[s] [value[s]]|durabilit(y|ies)) of %itemtypes/itemstacks/slots%",
@@ -8846,8 +8846,8 @@
       ],
       "return type": "Display Billboard",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] bill[ |-]board[ing] [setting] [of %displays%]",
@@ -8874,9 +8874,9 @@
       ],
       "return type": "integer",
       "changers": [
-        "reset",
         "delete",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [block|sky] (light [level]|brightness) override[s] of %displays%",
@@ -8898,9 +8898,9 @@
       ],
       "return type": "Color",
       "changers": [
-        "reset",
         "delete",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] glow[ing] colo[u]r[s] override[s] [of %displays%]",
@@ -8924,9 +8924,9 @@
       "return type": "float",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] display (height|width) [of %displays%]",
@@ -8951,9 +8951,9 @@
       "return type": "Timespan",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] interpolation (delay|duration)[s] [of %displays%]",
@@ -8975,9 +8975,9 @@
       "return type": "float",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] shadow (radius|strength) [of %displays%]",
@@ -9005,9 +9005,9 @@
       "return type": "Timespan",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] teleport[ation] duration[s] [of %displays%]",
@@ -9032,8 +9032,8 @@
       ],
       "return type": "Quaternion",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] (left|right) [transformation] rotation [of %displays%]",
@@ -9054,8 +9054,8 @@
       ],
       "return type": "Vector",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] (display|[display] transformation) (scale|translation) of %displays%",
@@ -9079,9 +9079,9 @@
       "return type": "float",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [display] view (range|radius) [of %displays%]",
@@ -9348,9 +9348,9 @@
       "return type": "Inventory",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -9378,9 +9378,9 @@
       "return type": "Entity",
       "changers": [
         "remove",
-        "remove all",
         "delete",
-        "add"
+        "add",
+        "remove all"
       ],
       "patterns": [
         "[(all [[of] the]|the)] %*entitydatas% [(in|of) ([world[s]] %worlds%|%chunks%)]",
@@ -9431,10 +9431,10 @@
       "return type": "Number",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] %attributetype% [((total|final|modified))] attribute [value] of %entities%",
@@ -9457,10 +9457,10 @@
       "return type": "Timespan",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [max[imum]] (burn[ing]|fire) (time|duration) of %entities%",
@@ -9483,9 +9483,9 @@
       ],
       "return type": "Offline Player",
       "changers": [
-        "reset",
         "delete",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] (owner|tamer) of %livingentities%",
@@ -9570,11 +9570,11 @@
       "return type": "Number",
       "changers": [
         "remove",
-        "remove all",
-        "reset",
         "delete",
         "add",
-        "set"
+        "remove all",
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] exhaustion of %players%",
@@ -9611,10 +9611,10 @@
       "return type": "Experience",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] (spawned|dropped|) [e]xp[erience] [orb[s]]"
@@ -9660,10 +9660,10 @@
       ],
       "return type": "Timespan",
       "changers": [
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] (experience|[e]xp) [pickup|collection] cooldown of %players%",
@@ -9852,9 +9852,9 @@
       "return type": "Block",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -9944,9 +9944,9 @@
       "return type": "float",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "(min[imum]|max[imum]) fish[ing] approach[ing] angle"
@@ -10042,9 +10042,9 @@
       "return type": "Timespan",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "(min[imum]|max[imum]) fish[ing] wait[ing] time"
@@ -10065,8 +10065,8 @@
       ],
       "return type": "Boolean",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] fl(y[ing]|ight) (mode|state) of %players%",
@@ -10088,10 +10088,10 @@
       "return type": "Number",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] (food|hunger)[[ ](level|met(er|re)|bar)] [of %players%]",
@@ -10184,10 +10184,10 @@
       "return type": "Timespan",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] freeze time of %entities%",
@@ -10264,9 +10264,9 @@
       "return type": "Slot",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -10331,8 +10331,8 @@
       ],
       "return type": "Game Mode",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] game[ ]mode of %players%",
@@ -10376,8 +10376,8 @@
       ],
       "return type": "Boolean",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] (gliding|glider) [state] of %livingentities%",
@@ -10398,8 +10398,8 @@
       ],
       "return type": "Boolean",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] glowing of %entities%",
@@ -10420,8 +10420,8 @@
       ],
       "return type": "Boolean",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] gravity of %entities%",
@@ -10447,9 +10447,9 @@
       "return type": "Entity",
       "changers": [
         "remove",
-        "remove all",
         "delete",
-        "add"
+        "add",
+        "remove all"
       ],
       "patterns": [
         "[the] hanging (entity|remover)"
@@ -10500,8 +10500,8 @@
       ],
       "return type": "Entity Type",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] hatching entity [type]"
@@ -10605,10 +10605,10 @@
       "return type": "Number",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] health of %livingentities%",
@@ -10630,8 +10630,8 @@
       "return type": "Player",
       "changers": [
         "remove",
-        "remove all",
-        "add"
+        "add",
+        "remove all"
       ],
       "patterns": [
         "[(all [[of] the]|the)] hidden players (of|for) %players%",
@@ -10659,9 +10659,9 @@
       "return type": "integer",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [max[imum]] domestication level of %livingentities%",
@@ -10756,10 +10756,10 @@
       "return type": "Text",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [custom] [player|server] (hover|sample) ([message] list|message)",
@@ -10881,9 +10881,9 @@
       "return type": "Inventory",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -10930,9 +10930,9 @@
       "return type": "Object",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -10998,8 +10998,8 @@
       "return type": "Object",
       "changers": [
         "remove",
-        "remove all",
-        "add"
+        "add",
+        "remove all"
       ],
       "patterns": [
         "(holder[s]|viewers|[amount of] rows|[amount of] slots) of %inventories%",
@@ -11025,9 +11025,9 @@
       "return type": "Slot",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -11069,10 +11069,10 @@
       "return type": "long",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] item[[ ]stack] (amount|size|number) of %slots/itemtypes/itemstacks%",
@@ -11097,10 +11097,10 @@
       "return type": "Timespan",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [item] cooldown of %itemtypes% for %players%",
@@ -11122,8 +11122,8 @@
       ],
       "return type": "Item Display Transforms",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] item [display] transform [of %displays%]",
@@ -11145,11 +11145,11 @@
       "return type": "Enchantment Type",
       "changers": [
         "remove",
-        "remove all",
-        "reset",
         "delete",
         "add",
-        "set"
+        "remove all",
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] enchantments of %itemtypes%",
@@ -11173,10 +11173,10 @@
       "return type": "Item Flag",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] item flags of %itemtypes%",
@@ -11203,9 +11203,9 @@
       "return type": "Slot",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -11337,9 +11337,9 @@
       "return type": "Slot",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -11462,10 +11462,10 @@
       "return type": "Damage Cause",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] last damage (cause|reason|type) of %livingentities%",
@@ -11488,9 +11488,9 @@
       ],
       "return type": "Location",
       "changers": [
-        "reset",
         "delete",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [last] death location[s] of %offlineplayers%",
@@ -11601,9 +11601,9 @@
       "return type": "Entity",
       "changers": [
         "remove",
-        "remove all",
         "delete",
-        "add"
+        "add",
+        "remove all"
       ],
       "patterns": [
         "[the] leash holder[s] of %livingentities%",
@@ -11644,10 +11644,10 @@
       "return type": "long",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] level of %players%",
@@ -11682,10 +11682,10 @@
       "return type": "Number",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] level progress of %players%",
@@ -11944,9 +11944,9 @@
       ],
       "return type": "Loot Table",
       "changers": [
-        "reset",
         "delete",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] loot[ ]table[s] of %entities/blocks%",
@@ -12077,9 +12077,9 @@
       "return type": "Timespan",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] love[d] time of %livingentities%",
@@ -12103,9 +12103,9 @@
       "return type": "Block",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -12152,9 +12152,9 @@
       ],
       "return type": "Text",
       "changers": [
-        "reset",
         "delete",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [(default)|(shown|displayed)] (MOTD|message of [the] day)"
@@ -12181,10 +12181,10 @@
       "return type": "integer",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] max[imum] (durabilit(y|ies)|damage) of %itemtypes/itemstacks/slots%",
@@ -12212,9 +12212,9 @@
       "return type": "Number",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] max[imum] health of %livingentities%",
@@ -12260,9 +12260,9 @@
       "return type": "Number",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] max[imum] minecart (speed|velocity) of %entities%",
@@ -12286,10 +12286,10 @@
       "return type": "integer",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [(real|default)|(fake|shown|displayed)] max[imum] player[s] [count|amount|number|size]",
@@ -12337,9 +12337,9 @@
       "return type": "integer",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] max[imum] stack[[ ]size] of %itemtypes/inventories%",
@@ -12366,8 +12366,8 @@
       "return type": "Player",
       "changers": [
         "remove",
-        "remove all",
-        "add"
+        "add",
+        "remove all"
       ],
       "patterns": [
         "me",
@@ -12391,9 +12391,9 @@
       "return type": "long",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [mending] repair amount"
@@ -12554,9 +12554,9 @@
       "return type": "Block",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -12607,8 +12607,8 @@
       ],
       "return type": "Text",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] name[s] of %offlineplayers/entities/nameds/inventories%",
@@ -12697,10 +12697,10 @@
       "return type": "long",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] (invulnerability|invincibility|no damage) tick[s] of %livingentities%",
@@ -12827,10 +12827,10 @@
       "return type": "long",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [((real|default)|(fake|shown|displayed))] [online] player (count|amount|number)",
@@ -12856,9 +12856,9 @@
       "return type": "Inventory",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -12945,11 +12945,11 @@
       "return type": "Entity",
       "changers": [
         "remove",
-        "remove all",
-        "reset",
         "delete",
         "add",
-        "set"
+        "remove all",
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] passenger[s] of %entities%",
@@ -13010,10 +13010,10 @@
       "return type": "Timespan",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] pick[ ]up delay of %entities%",
@@ -13076,10 +13076,10 @@
       "return type": "Text",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [custom] chat completion[s] of %players%",
@@ -13126,9 +13126,9 @@
       ],
       "return type": "Text",
       "changers": [
-        "reset",
         "delete",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] (player|tab)[ ]list (header|footer) [(text|message)] of %players%",
@@ -13196,8 +13196,8 @@
       ],
       "return type": "Weather Type",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [(client|custom)] weather of %players%",
@@ -13221,9 +13221,9 @@
       "return type": "Block",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -13250,10 +13250,10 @@
       "return type": "Timespan",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] portal cooldown of %entities%",
@@ -13403,9 +13403,9 @@
       "return type": "Queue",
       "changers": [
         "remove",
-        "reset",
         "delete",
-        "add"
+        "add",
+        "reset"
       ],
       "patterns": [
         "[a] [new] queue [(of|with) %objects%]"
@@ -13623,10 +13623,10 @@
       "return type": "Timespan",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] remaining air of %livingentities%",
@@ -13690,10 +13690,10 @@
       "return type": "integer",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [max[imum]] charge[s] of %blocks%",
@@ -13878,10 +13878,10 @@
       "return type": "Number",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] saturation of %players%",
@@ -13914,10 +13914,10 @@
       "return type": "Text",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[(all [[of] the]|the)] scoreboard tags of %entities%",
@@ -13993,10 +13993,10 @@
       "return type": "integer",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [(min|max)[imum]] [sea] pickle(s| (count|amount)) of %blocks%",
@@ -14044,9 +14044,9 @@
       "return type": "Text",
       "changers": [
         "remove",
-        "reset",
         "delete",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [sent] [server] command[s] list"
@@ -14110,9 +14110,9 @@
       "return type": "Living Entity",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -14243,9 +14243,9 @@
       "return type": "Block",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -14346,8 +14346,8 @@
       ],
       "return type": "Entity Type",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] (spawner|entity|creature) type[s] of %blocks%",
@@ -14392,9 +14392,9 @@
       "return type": "Entity",
       "changers": [
         "remove",
-        "remove all",
         "delete",
-        "add"
+        "add",
+        "remove all"
       ],
       "patterns": [
         "spectator target [of %players%]",
@@ -14421,9 +14421,9 @@
       "return type": "Number",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] (walk[ing]|fl(y[ing]|ight))[( |-)]speed of %players%",
@@ -14614,8 +14614,8 @@
       "return type": "Player",
       "changers": [
         "remove",
-        "remove all",
-        "add"
+        "add",
+        "remove all"
       ],
       "patterns": [
         "[the] tamer"
@@ -14645,11 +14645,11 @@
       "return type": "Entity",
       "changers": [
         "remove",
-        "remove all",
-        "reset",
         "delete",
         "add",
-        "set"
+        "remove all",
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] target[[ed] %*entitydata%] [of %livingentities%] [ignoring blocks] [[with|at] ray[ ]size %number%]",
@@ -14679,9 +14679,9 @@
       "return type": "Block",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -14757,8 +14757,8 @@
       ],
       "return type": "Display Text Alignment",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] text alignment[s] [of %displays%]",
@@ -14780,9 +14780,9 @@
       "return type": "integer",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] line width [of %displays%]",
@@ -14805,9 +14805,9 @@
       "return type": "byte",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [display] opacity [of %displays%]",
@@ -14829,8 +14829,8 @@
       ],
       "return type": "Text",
       "changers": [
-        "reset",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] text[s] of %displays%",
@@ -14973,9 +14973,9 @@
       "return type": "Slot",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -15005,10 +15005,10 @@
       "return type": "integer",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] [total] experience of %entities%",
@@ -15198,9 +15198,9 @@
       ],
       "return type": "Object",
       "changers": [
-        "reset",
         "delete",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] %*classinfo% value [at] %string% (from|in) %node%",
@@ -15592,10 +15592,10 @@
       "return type": "Vector",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] velocit(y|ies) of %entities%",
@@ -15618,9 +15618,9 @@
       "return type": "Entity",
       "changers": [
         "remove",
-        "remove all",
         "delete",
         "add",
+        "remove all",
         "set"
       ],
       "patterns": [
@@ -15694,10 +15694,10 @@
       "return type": "integer",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] view distance[s] of %players%",
@@ -15754,9 +15754,9 @@
       "return type": "Number",
       "changers": [
         "remove",
-        "reset",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] villager (level|experience) of %livingentities%",
@@ -15871,10 +15871,10 @@
       "return type": "Offline Player",
       "changers": [
         "remove",
-        "reset",
         "delete",
         "add",
-        "set"
+        "set",
+        "reset"
       ],
       "patterns": [
         "[the] white[ ]list"
@@ -16078,7 +16078,6 @@
       "examples": [
         "{thing}'s name"
       ],
-      "usage": "",
       "since": [
         "2.10"
       ],
@@ -16096,7 +16095,6 @@
         "the size of {thing}",
         "the amount of {thing}"
       ],
-      "usage": "",
       "since": [
         "2.10"
       ],
@@ -16113,7 +16111,6 @@
       "examples": [
         "the text of {node}"
       ],
-      "usage": "",
       "since": [
         "2.10"
       ],
@@ -16130,7 +16127,6 @@
       "examples": [
         "{a} contains {b}"
       ],
-      "usage": "",
       "since": [
         "2.10"
       ],
@@ -16208,7 +16204,6 @@
       "examples": [
         ""
       ],
-      "usage": "",
       "since": [
         "1.0"
       ],
@@ -16285,7 +16280,6 @@
       "examples": [
         ""
       ],
-      "usage": "",
       "since": [
         "2.0"
       ],
@@ -16363,7 +16357,6 @@
       "examples": [
         "the skript config"
       ],
-      "usage": "",
       "since": [
         "2.10"
       ],
@@ -16401,7 +16394,6 @@
         "subtract a day from {_yesterday}",
         "# now {_yesterday} represents the date 24 hours before now"
       ],
-      "usage": "",
       "since": [
         "1.4"
       ],
@@ -16775,7 +16767,6 @@
       "examples": [
         ""
       ],
-      "usage": "",
       "since": [
         "2.5"
       ],
@@ -16835,7 +16826,6 @@
       "examples": [
         ""
       ],
-      "usage": "",
       "since": [
         "1.0"
       ],
@@ -17003,7 +16993,6 @@
       "examples": [
         ""
       ],
-      "usage": "",
       "since": [
         "1.0"
       ],
@@ -17095,7 +17084,6 @@
       "examples": [
         "the current script"
       ],
-      "usage": "",
       "since": [
         "2.10"
       ],
@@ -17133,7 +17121,6 @@
       "examples": [
         ""
       ],
-      "usage": "",
       "since": [
         "1.0"
       ],
@@ -17308,7 +17295,6 @@
       "examples": [
         "the current script"
       ],
-      "usage": "",
       "since": [
         "2.10"
       ],
@@ -17346,7 +17332,6 @@
         "set the color of the player's tool to green",
         "enchant the player's chestplate with projectile protection 5"
       ],
-      "usage": "",
       "changers": [
         "add",
         "set",
